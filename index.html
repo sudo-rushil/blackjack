@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Blackjack</title>
+
+  <link rel="stylesheet" href="assets/skeleton.css">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+  <script src="assets/blackjack.js"></script>
+
+  <style>
+    ul {
+      list-style-type: none;
+      margin-bottom: 0px;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    li {
+      float: left;
+    }
+
+    .elem {
+      text-align: center;
+      padding: 5px;
+      text-decoration: none;
+    }
+
+    .elem:hover {
+      background-color: #DDD;
+      color: white;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <h1>Play Blackjack!</h1>
+
+      <div id="elm"></div>
+
+      <script>
+        var app = Elm.Blackjack.init({
+          node: document.getElementById('elm')
+        });
+      </script>
+
+    </div>
+  </div>
+</body>
+</html>
