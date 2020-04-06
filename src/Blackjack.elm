@@ -255,7 +255,7 @@ update msg model =
                 )
 
         Dealer ->
-            ( game <| stand model
+            ( stand model
             , Cmd.none
             )
 
