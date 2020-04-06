@@ -121,15 +121,15 @@ cardValue card =
 
 
 type alias Player =
-    List Card
+    { hand : List Card, cash : Int, bet : Int}
 
 
 score : Player -> Int
-score hand =
+score player =
     let
         raw : List Int
         raw =
-            List.map cardValue hand
+            List.map cardValue player.hand
 
         rawScore : Int
         rawScore =
@@ -152,6 +152,7 @@ type Game
     | Draw
     | Lose
     | Bust
+    | End
 
 
 viewGame : Game -> Html Msg
@@ -161,7 +162,7 @@ viewGame gameState =
             case gameState of
                 Play ->
                     ( "black"
-                    , ""
+                    , " "
                     )
 
                 Win ->
@@ -183,6 +184,11 @@ viewGame gameState =
                     ( "red"
                     , "You Busted"
                     )
+
+                End ->
+                    ( "red"
+                    , "Game Over"
+                    )
     in
     span
         [ style "color" color ]
@@ -199,7 +205,7 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model [] [] [] Play
+    ( Model (Player [] 100 0) (Player [] 0 0) [] Play
     , Random.generate Start initDeck
     )
 
@@ -211,6 +217,7 @@ init _ =
 type Msg
     = Start (List Card)
     | New
+    | Bet Int
     | Hit
     | Dealer
 
@@ -225,6 +232,11 @@ update msg model =
 
         New ->
             ( new model
+            , Cmd.none
+            )
+
+        Bet value ->
+            ( bet value model
             , Cmd.none
             )
 
@@ -243,7 +255,7 @@ update msg model =
                 )
 
         Dealer ->
-            ( stand model
+            ( game <| stand model
             , Cmd.none
             )
 
@@ -254,12 +266,28 @@ update msg model =
 -- represented by transformations between models
 
 
+bet : Int -> Model -> Model
+bet value model =
+    let
+        you : Player
+        you = model.you
+    in
+    { model
+        | you = { you
+            | cash = you.cash - value, bet = you.bet + value
+        }
+    }
+
 hit : Model -> Model
 hit model =
+    let
+        you : Player
+        you = model.you
+    in
     case model.deck of
         c :: cd ->
             { model
-                | you = List.foldr (::) [ c ] model.you
+                | you = { you | hand = List.foldr (::) [ c ] you.hand }
                 , deck = cd
             }
 
@@ -274,18 +302,20 @@ stand model =
         dealerScore =
             score model.dealer
 
+        dealerHand : List Card
+        dealerHand = List.filter ((/=) Back) model.dealer.hand
+
         dealer : Player
-        dealer = List.filter ((/=) Back) model.dealer
+        dealer = model.dealer
     in
     if dealerScore < 17 then
         case model.deck of
             c :: cd ->
-                game <|
-                    stand
-                        { model
-                            | dealer = List.foldr (::) [ c ] dealer
-                            , deck = cd
-                        }
+                stand
+                    { model
+                        | dealer = { dealer | hand = List.foldr (::) [ c ] dealerHand }
+                        , deck = cd
+                    }
 
             _ ->
                 model
@@ -297,19 +327,19 @@ stand model =
 new : Model -> Model
 new model =
     let
-        playerHand : Player
+        playerHand : List Card
         playerHand =
-            model.you
+            model.you.hand
 
-        dealerHand : Player
+        dealerHand : List Card
         dealerHand =
-            List.filter ((/=) Back) model.dealer
+            List.filter ((/=) Back) model.dealer.hand
     in
     case model.deck of
         c :: c2 :: c3 :: cd ->
             { model
-                | you = [ c, c2 ]
-                , dealer = [ c3, Back ]
+                | you = Player [ c, c2 ] (model.you.cash - 1) 1
+                , dealer = Player [ c3, Back ] 0 0
                 , deck = cd ++ playerHand ++ dealerHand
                 , state = Play
             }
@@ -328,18 +358,36 @@ game model =
         dealerScore : Int
         dealerScore =
             score model.dealer
+
+        you : Player
+        you = model.you
     in
-    if playerScore > 21 then
-        { model | state = Bust }
+    if you.cash < 0 then
+        { model | state = End }
+
+    else if playerScore > 21 then
+        { model
+            | state = Bust
+            , you = { you | cash = you.cash , bet = 0}
+        }
 
     else if playerScore > dealerScore || dealerScore > 21 then
-        { model | state = Win }
+        { model
+            | state = Win
+            , you = { you | cash = you.cash + 2 * you.bet , bet = 0}
+        }
 
     else if playerScore == dealerScore then
-        { model | state = Draw }
+        { model
+            | state = Draw
+            , you = { you | cash = you.cash + you.bet , bet = 0}
+        }
 
     else
-        { model | state = Lose }
+        { model
+            | state = Lose
+            , you = { you | cash = you.cash , bet = 0}
+        }
 
 
 
@@ -357,19 +405,37 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ viewControls
-        , viewHand model.you "Player"
-        , viewHand model.dealer "Dealer"
-        , div [] [ viewGame model.state ]
-        ]
+    if model.state /= End then
+        div []
+            [ viewHand model.dealer "Dealer"
+            , viewHand model.you "Player"
+            , viewControls
+            , viewBets
+            , viewAccount model.you
+            , div [] [ viewGame model.state ]
+            ]
+    else
+        div []
+            [ viewHand model.you "Player"
+            , viewHand model.dealer "Dealer"
+            , viewAccount model.you
+            , div [] [ viewGame model.state ]
+            ]
+
 
 
 viewHand : Player -> String -> Html Msg
 viewHand player string =
     div []
         [ text (string ++ " Score: " ++ (String.fromInt <| score player))
-        , div [] (List.map viewCard player)
+        , div [] (List.map viewCard player.hand)
+        ]
+
+viewAccount : Player -> Html Msg
+viewAccount you =
+    div []
+        [ div [] [text ( "Cash: $" ++ (String.fromInt <| you.cash))]
+        , div [] [text ( "Bet value: $" ++ (String.fromInt <| you.bet))]
         ]
 
 
@@ -379,4 +445,12 @@ viewControls =
         [ li [ class "elem" ] [ button [ onClick Hit ] [ text "Hit" ] ]
         , li [ class "elem" ] [ button [ onClick Dealer ] [ text "Stand" ] ]
         , li [ class "elem" ] [ button [ onClick New ] [ text "New" ] ]
+        ]
+
+viewBets : Html Msg
+viewBets =
+    ul []
+        [ li [ class "elem" ] [ button [ onClick (Bet 1) ] [ text "$1" ] ]
+        , li [ class "elem" ] [ button [ onClick (Bet 5) ] [ text "$5" ] ]
+        , li [ class "elem" ] [ button [ onClick (Bet 10) ] [ text "$10" ] ]
         ]
