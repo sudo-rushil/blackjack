@@ -6295,84 +6295,53 @@ var $author$project$Blackjack$viewFace = F2(
 			$elm$core$Char$fromCode(suit + face));
 	});
 var $author$project$Blackjack$viewCard = function (card) {
-	if (card.$ === 'Card') {
-		switch (card.a.$) {
-			case 'Spades':
-				var _v1 = card.a;
-				var face = card.b;
-				return A2(
-					$elm$html$Html$span,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'color', 'black'),
-							A2($elm$html$Html$Attributes$style, 'font-size', '10em')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(
-							A2($author$project$Blackjack$viewFace, 127136, face))
-						]));
-			case 'Diamonds':
-				var _v2 = card.a;
-				var face = card.b;
-				return A2(
-					$elm$html$Html$span,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'color', 'red'),
-							A2($elm$html$Html$Attributes$style, 'font-size', '10em')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(
-							A2($author$project$Blackjack$viewFace, 127152, face))
-						]));
-			case 'Clubs':
-				var _v3 = card.a;
-				var face = card.b;
-				return A2(
-					$elm$html$Html$span,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'color', 'black'),
-							A2($elm$html$Html$Attributes$style, 'font-size', '10em')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(
-							A2($author$project$Blackjack$viewFace, 127168, face))
-						]));
-			default:
-				var _v4 = card.a;
-				var face = card.b;
-				return A2(
-					$elm$html$Html$span,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'color', 'red'),
-							A2($elm$html$Html$Attributes$style, 'font-size', '10em')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(
-							A2($author$project$Blackjack$viewFace, 127184, face))
-						]));
+	var _v0 = function () {
+		if (card.$ === 'Card') {
+			switch (card.a.$) {
+				case 'Spades':
+					var _v2 = card.a;
+					var value = card.b;
+					return _Utils_Tuple2(
+						'black',
+						A2($author$project$Blackjack$viewFace, 127136, value));
+				case 'Diamonds':
+					var _v3 = card.a;
+					var value = card.b;
+					return _Utils_Tuple2(
+						'red',
+						A2($author$project$Blackjack$viewFace, 127152, value));
+				case 'Clubs':
+					var _v4 = card.a;
+					var value = card.b;
+					return _Utils_Tuple2(
+						'black',
+						A2($author$project$Blackjack$viewFace, 127168, value));
+				default:
+					var _v5 = card.a;
+					var value = card.b;
+					return _Utils_Tuple2(
+						'red',
+						A2($author$project$Blackjack$viewFace, 127184, value));
+			}
+		} else {
+			return _Utils_Tuple2(
+				'black',
+				A2($author$project$Blackjack$viewFace, 127136, 0));
 		}
-	} else {
-		return A2(
-			$elm$html$Html$span,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'color', 'black'),
-					A2($elm$html$Html$Attributes$style, 'font-size', '10em')
-				]),
-			_List_fromArray(
-				[
-					$elm$html$Html$text(
-					$elm$core$String$fromChar(
-						$elm$core$Char$fromCode(127136)))
-				]));
-	}
+	}();
+	var color = _v0.a;
+	var face = _v0.b;
+	return A2(
+		$elm$html$Html$span,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'color', color),
+				A2($elm$html$Html$Attributes$style, 'font-size', '10em')
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text(face)
+			]));
 };
 var $author$project$Blackjack$viewHand = F2(
 	function (player, string) {

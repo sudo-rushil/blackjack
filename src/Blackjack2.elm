@@ -1,4 +1,4 @@
-module Blackjack exposing (..)
+module Blackjack2 exposing (..)
 
 import Browser
 import Html exposing (..)
