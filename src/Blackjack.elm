@@ -445,7 +445,7 @@ double game =
         newGame =
             { game | you = newPlayer }
     in
-    hit game
+    hit newGame
         |> stand
 
 

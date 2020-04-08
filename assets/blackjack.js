@@ -5914,7 +5914,7 @@ var $author$project$Blackjack$double = function (game) {
 		game,
 		{e: newPlayer});
 	return $author$project$Blackjack$stand(
-		$author$project$Blackjack$hit(game));
+		$author$project$Blackjack$hit(newGame));
 };
 var $author$project$Blackjack$getGame = function (model) {
 	switch (model.$) {
