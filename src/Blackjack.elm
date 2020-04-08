@@ -347,7 +347,13 @@ updateAction action model =
                 )
 
         Double ->
-            update (Moving ScoreHand) (double game)
+            if game.you.cash >= game.you.bet then
+                update (Moving ScoreHand) (double game)
+
+            else
+                ( model
+                , Cmd.none
+                )
 
         Stand ->
             update (Moving ScoreHand) (stand game)

@@ -4844,7 +4844,7 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.c) {
+		if (!builder.d) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
 				$elm$core$Elm$JsArray$length(builder.f),
@@ -4852,11 +4852,11 @@ var $elm$core$Array$builderToArray = F2(
 				$elm$core$Elm$JsArray$empty,
 				builder.f);
 		} else {
-			var treeLen = builder.c * $elm$core$Array$branchFactor;
+			var treeLen = builder.d * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
 			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.g) : builder.g;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.c);
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.d);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
 				$elm$core$Elm$JsArray$length(builder.f) + treeLen,
@@ -4875,7 +4875,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{g: nodeList, c: (len / $elm$core$Array$branchFactor) | 0, f: tail});
+					{g: nodeList, d: (len / $elm$core$Array$branchFactor) | 0, f: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -5363,7 +5363,7 @@ var $elm$core$Array$fromListHelp = F3(
 				return A2(
 					$elm$core$Array$builderToArray,
 					true,
-					{g: nodeList, c: nodeListSize, f: jsArray});
+					{g: nodeList, d: nodeListSize, f: jsArray});
 			} else {
 				var $temp$list = remainingItems,
 					$temp$nodeList = A2(
@@ -5794,7 +5794,7 @@ var $author$project$Blackjack$cardToEnd = F2(
 			deck);
 	});
 var $author$project$Blackjack$hit = function (game) {
-	var player = game.e;
+	var player = game.b;
 	var _v0 = game.i;
 	if (_v0.b) {
 		var c = _v0.a;
@@ -5803,7 +5803,7 @@ var $author$project$Blackjack$hit = function (game) {
 			game,
 			{
 				i: cd,
-				e: _Utils_update(
+				b: _Utils_update(
 					player,
 					{
 						m: A2($author$project$Blackjack$cardToEnd, player.m, c)
@@ -5906,13 +5906,13 @@ var $author$project$Blackjack$stand = function (game) {
 	return $author$project$Blackjack$Playing(dealerPlays);
 };
 var $author$project$Blackjack$double = function (game) {
-	var player = game.e;
+	var player = game.b;
 	var newPlayer = _Utils_update(
 		player,
-		{a: player.a * 2, b: player.b - player.a});
+		{a: player.a * 2, c: player.c - player.a});
 	var newGame = _Utils_update(
 		game,
-		{e: newPlayer});
+		{b: newPlayer});
 	return $author$project$Blackjack$stand(
 		$author$project$Blackjack$hit(newGame));
 };
@@ -5931,23 +5931,23 @@ var $author$project$Blackjack$getGame = function (model) {
 			return {
 				o: _List_Nil,
 				i: _List_Nil,
-				e: {a: 0, b: 0, m: _List_Nil}
+				b: {a: 0, c: 0, m: _List_Nil}
 			};
 	}
 };
 var $author$project$Blackjack$playerBet = F2(
 	function (player, value) {
-		return (_Utils_cmp(player.b, value) > -1) ? _Utils_update(
+		return (_Utils_cmp(player.c, value) > -1) ? _Utils_update(
 			player,
-			{a: player.a + value, b: player.b - value}) : player;
+			{a: player.a + value, c: player.c - value}) : player;
 	});
 var $author$project$Blackjack$makeBet = F2(
 	function (game, value) {
-		var player = game.e;
+		var player = game.b;
 		return _Utils_update(
 			game,
 			{
-				e: A2($author$project$Blackjack$playerBet, player, value)
+				b: A2($author$project$Blackjack$playerBet, player, value)
 			});
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
@@ -5964,7 +5964,7 @@ var $author$project$Blackjack$Bust = 3;
 var $author$project$Blackjack$Draw = 1;
 var $author$project$Blackjack$Lose = 2;
 var $author$project$Blackjack$gameOutcome = function (game) {
-	var playerScore = $author$project$Blackjack$score(game.e.m);
+	var playerScore = $author$project$Blackjack$score(game.b.m);
 	var dealerScore = $author$project$Blackjack$score(game.o);
 	return (playerScore > 21) ? 3 : ((dealerScore > 21) ? 0 : (_Utils_eq(playerScore, dealerScore) ? 1 : ((_Utils_cmp(playerScore, dealerScore) > 0) ? 0 : 2)));
 };
@@ -5990,7 +5990,7 @@ var $author$project$Blackjack$getDeck = function (model) {
 };
 var $author$project$Blackjack$Game = F3(
 	function (you, dealer, deck) {
-		return {o: dealer, i: deck, e: you};
+		return {o: dealer, i: deck, b: you};
 	});
 var $author$project$Blackjack$initGame = function (deck) {
 	if ((deck.b && deck.b.b) && deck.b.b.b) {
@@ -6004,9 +6004,9 @@ var $author$project$Blackjack$initGame = function (deck) {
 			o: _List_fromArray(
 				[c3, $author$project$Blackjack$Back]),
 			i: cd,
-			e: {
+			b: {
 				a: 0,
-				b: 100,
+				c: 100,
 				m: _List_fromArray(
 					[c, c2])
 			}
@@ -6014,14 +6014,14 @@ var $author$project$Blackjack$initGame = function (deck) {
 	} else {
 		return A3(
 			$author$project$Blackjack$Game,
-			{a: 0, b: 0, m: _List_Nil},
+			{a: 0, c: 0, m: _List_Nil},
 			_List_Nil,
 			_List_Nil);
 	}
 };
 var $author$project$Blackjack$isGameOver = F2(
 	function (game, outcome) {
-		return ((outcome === 3) || (outcome === 2)) ? (_Utils_cmp(game.e.a, game.e.b) > 0) : false;
+		return ((outcome === 3) || (outcome === 2)) ? (_Utils_cmp(game.b.a, game.b.c) > 0) : false;
 	});
 var $author$project$Blackjack$getBets = F2(
 	function (player, outcome) {
@@ -6029,25 +6029,25 @@ var $author$project$Blackjack$getBets = F2(
 			case 0:
 				return _Utils_update(
 					player,
-					{a: 0, b: player.b + (2 * player.a)});
+					{a: 0, c: player.c + (2 * player.a)});
 			case 1:
 				return _Utils_update(
 					player,
-					{a: 0, b: player.b + player.a});
+					{a: 0, c: player.c + player.a});
 			case 2:
 				return _Utils_update(
 					player,
-					{a: 0, b: player.b - player.a});
+					{a: 0, c: player.c - player.a});
 			default:
 				return _Utils_update(
 					player,
-					{a: 0, b: player.b - player.a});
+					{a: 0, c: player.c - player.a});
 		}
 	});
 var $author$project$Blackjack$nextGame = F2(
 	function (game, outcome) {
-		var playerHand = game.e.m;
-		var player = A2($author$project$Blackjack$getBets, game.e, outcome);
+		var playerHand = game.b.m;
+		var player = A2($author$project$Blackjack$getBets, game.b, outcome);
 		var dealerHand = A2(
 			$elm$core$List$filter,
 			$elm$core$Basics$neq($author$project$Blackjack$Back),
@@ -6068,7 +6068,7 @@ var $author$project$Blackjack$nextGame = F2(
 					i: _Utils_ap(
 						cd,
 						_Utils_ap(playerHand, dealerHand)),
-					e: _Utils_update(
+					b: _Utils_update(
 						player,
 						{
 							m: _List_fromArray(
@@ -6103,7 +6103,7 @@ var $author$project$Blackjack$updateMoving = F2(
 						A2($author$project$Blackjack$nextGame, game, outcome)),
 					$elm$core$Platform$Cmd$none);
 			case 2:
-				return (game.e.a > 0) ? _Utils_Tuple2(
+				return (game.b.a > 0) ? _Utils_Tuple2(
 					$author$project$Blackjack$Playing(game),
 					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			case 3:
@@ -6148,17 +6148,17 @@ var $author$project$Blackjack$updateAction = F2(
 					$elm$core$Platform$Cmd$none);
 			case 1:
 				var newGame = $author$project$Blackjack$hit(game);
-				return ($author$project$Blackjack$score(newGame.e.m) > 21) ? A2(
+				return ($author$project$Blackjack$score(newGame.b.m) > 21) ? A2(
 					$author$project$Blackjack$update,
 					$author$project$Blackjack$Moving(3),
 					$author$project$Blackjack$Playing(newGame)) : _Utils_Tuple2(
 					$author$project$Blackjack$Playing(newGame),
 					$elm$core$Platform$Cmd$none);
 			case 2:
-				return A2(
+				return (_Utils_cmp(game.b.c, game.b.a) > -1) ? A2(
 					$author$project$Blackjack$update,
 					$author$project$Blackjack$Moving(3),
-					$author$project$Blackjack$double(game));
+					$author$project$Blackjack$double(game)) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			default:
 				return A2(
 					$author$project$Blackjack$update,
@@ -6287,7 +6287,7 @@ var $author$project$Blackjack$viewAccount = function (you) {
 				_List_fromArray(
 					[
 						$elm$html$Html$text(
-						'Cash: $' + $elm$core$String$fromInt(you.b))
+						'Cash: $' + $elm$core$String$fromInt(you.c))
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -6399,8 +6399,8 @@ var $author$project$Blackjack$viewGame = function (game) {
 		_List_fromArray(
 			[
 				$author$project$Blackjack$viewDealer(game.o),
-				$author$project$Blackjack$viewPlayer(game.e),
-				$author$project$Blackjack$viewAccount(game.e),
+				$author$project$Blackjack$viewPlayer(game.b),
+				$author$project$Blackjack$viewAccount(game.b),
 				A2($elm$html$Html$br, _List_Nil, _List_Nil)
 			]));
 };
