@@ -77,7 +77,7 @@ function A9(fun, a, b, c, d, e, f, g, h, i) {
   return fun.a === 9 ? fun.f(a, b, c, d, e, f, g, h, i) : fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
 }
 
-console.warn('Compiled in DEV mode. Follow the advice at https://elm-lang.org/0.19.1/optimize for better performance and smaller assets.');
+
 
 
 // EQUALITY
@@ -113,7 +113,7 @@ function _Utils_eqHelp(x, y, depth, stack)
 		return true;
 	}
 
-	/**/
+	/**_UNUSED/
 	if (x.$ === 'Set_elm_builtin')
 	{
 		x = $elm$core$Set$toList(x);
@@ -126,7 +126,7 @@ function _Utils_eqHelp(x, y, depth, stack)
 	}
 	//*/
 
-	/**_UNUSED/
+	/**/
 	if (x.$ < 0)
 	{
 		x = $elm$core$Dict$toList(x);
@@ -161,7 +161,7 @@ function _Utils_cmp(x, y, ord)
 		return x === y ? /*EQ*/ 0 : x < y ? /*LT*/ -1 : /*GT*/ 1;
 	}
 
-	/**/
+	/**_UNUSED/
 	if (x instanceof String)
 	{
 		var a = x.valueOf();
@@ -170,10 +170,10 @@ function _Utils_cmp(x, y, ord)
 	}
 	//*/
 
-	/**_UNUSED/
+	/**/
 	if (typeof x.$ === 'undefined')
 	//*/
-	/**/
+	/**_UNUSED/
 	if (x.$[0] === '#')
 	//*/
 	{
@@ -203,17 +203,17 @@ var _Utils_compare = F2(function(x, y)
 
 // COMMON VALUES
 
-var _Utils_Tuple0_UNUSED = 0;
-var _Utils_Tuple0 = { $: '#0' };
+var _Utils_Tuple0 = 0;
+var _Utils_Tuple0_UNUSED = { $: '#0' };
 
-function _Utils_Tuple2_UNUSED(a, b) { return { a: a, b: b }; }
-function _Utils_Tuple2(a, b) { return { $: '#2', a: a, b: b }; }
+function _Utils_Tuple2(a, b) { return { a: a, b: b }; }
+function _Utils_Tuple2_UNUSED(a, b) { return { $: '#2', a: a, b: b }; }
 
-function _Utils_Tuple3_UNUSED(a, b, c) { return { a: a, b: b, c: c }; }
-function _Utils_Tuple3(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
+function _Utils_Tuple3(a, b, c) { return { a: a, b: b, c: c }; }
+function _Utils_Tuple3_UNUSED(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
 
-function _Utils_chr_UNUSED(c) { return c; }
-function _Utils_chr(c) { return new String(c); }
+function _Utils_chr(c) { return c; }
+function _Utils_chr_UNUSED(c) { return new String(c); }
 
 
 // RECORDS
@@ -264,11 +264,11 @@ function _Utils_ap(xs, ys)
 
 
 
-var _List_Nil_UNUSED = { $: 0 };
-var _List_Nil = { $: '[]' };
+var _List_Nil = { $: 0 };
+var _List_Nil_UNUSED = { $: '[]' };
 
-function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
-function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
+function _List_Cons(hd, tl) { return { $: 1, a: hd, b: tl }; }
+function _List_Cons_UNUSED(hd, tl) { return { $: '::', a: hd, b: tl }; }
 
 
 var _List_cons = F2(_List_Cons);
@@ -499,12 +499,12 @@ var _JsArray_appendN = F3(function(n, dest, source)
 
 // LOG
 
-var _Debug_log_UNUSED = F2(function(tag, value)
+var _Debug_log = F2(function(tag, value)
 {
 	return value;
 });
 
-var _Debug_log = F2(function(tag, value)
+var _Debug_log_UNUSED = F2(function(tag, value)
 {
 	console.log(tag + ': ' + _Debug_toString(value));
 	return value;
@@ -530,12 +530,12 @@ function _Debug_todoCase(moduleName, region, value)
 
 // TO STRING
 
-function _Debug_toString_UNUSED(value)
+function _Debug_toString(value)
 {
 	return '<internals>';
 }
 
-function _Debug_toString(value)
+function _Debug_toString_UNUSED(value)
 {
 	return _Debug_toAnsiString(false, value);
 }
@@ -720,13 +720,13 @@ function _Debug_toHexDigit(n)
 // CRASH
 
 
-function _Debug_crash_UNUSED(identifier)
+function _Debug_crash(identifier)
 {
 	throw new Error('https://github.com/elm/core/blob/1.0.0/hints/' + identifier + '.md');
 }
 
 
-function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
+function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 {
 	switch(identifier)
 	{
@@ -784,11 +784,11 @@ function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.start.line === region.end.line)
+	if (region.O.F === region.T.F)
 	{
-		return 'on line ' + region.start.line;
+		return 'on line ' + region.O.F;
 	}
-	return 'on lines ' + region.start.line + ' through ' + region.end.line;
+	return 'on lines ' + region.O.F + ' through ' + region.T.F;
 }
 
 
@@ -1212,7 +1212,7 @@ function _Char_toLocaleLower(char)
 
 
 
-/**/
+/**_UNUSED/
 function _Json_errorToString(error)
 {
 	return $elm$json$Json$Decode$errorToString(error);
@@ -1616,11 +1616,11 @@ var _Json_encode = F2(function(indentLevel, value)
 	return JSON.stringify(_Json_unwrap(value), null, indentLevel) + '';
 });
 
-function _Json_wrap(value) { return { $: 0, a: value }; }
-function _Json_unwrap(value) { return value.a; }
+function _Json_wrap_UNUSED(value) { return { $: 0, a: value }; }
+function _Json_unwrap_UNUSED(value) { return value.a; }
 
-function _Json_wrap_UNUSED(value) { return value; }
-function _Json_unwrap_UNUSED(value) { return value; }
+function _Json_wrap(value) { return value; }
+function _Json_unwrap(value) { return value; }
 
 function _Json_emptyArray() { return []; }
 function _Json_emptyObject() { return {}; }
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.az,
+		impl.aH,
+		impl.aF,
 		function() { return function() {} }
 	);
 });
@@ -1872,7 +1872,7 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 function _Platform_initialize(flagDecoder, args, init, update, subscriptions, stepperBuilder)
 {
 	var result = A2(_Json_run, flagDecoder, _Json_wrap(args ? args['flags'] : undefined));
-	$elm$core$Result$isOk(result) || _Debug_crash(2 /**/, _Json_errorToString(result.a) /**/);
+	$elm$core$Result$isOk(result) || _Debug_crash(2 /**_UNUSED/, _Json_errorToString(result.a) /**/);
 	var managers = {};
 	var initPair = init(result.a);
 	var model = initPair.a;
@@ -2316,7 +2316,7 @@ function _Platform_setupIncomingPort(name, sendToApp)
 //
 
 
-function _Platform_export_UNUSED(exports)
+function _Platform_export(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsProd(scope['Elm'], exports)
@@ -2337,7 +2337,7 @@ function _Platform_mergeExportsProd(obj, exports)
 }
 
 
-function _Platform_export(exports)
+function _Platform_export_UNUSED(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsDebug('Elm', scope['Elm'], exports)
@@ -2377,10 +2377,10 @@ var _VirtualDom_init = F4(function(virtualNode, flagDecoder, debugMetadata, args
 {
 	// NOTE: this function needs _Platform_export available to work
 
-	/**_UNUSED/
+	/**/
 	var node = args['node'];
 	//*/
-	/**/
+	/**_UNUSED/
 	var node = args && args['node'] ? args['node'] : _Debug_crash(0);
 	//*/
 
@@ -2635,24 +2635,24 @@ function _VirtualDom_noInnerHtmlOrFormAction(key)
 	return key == 'innerHTML' || key == 'formAction' ? 'data-' + key : key;
 }
 
-function _VirtualDom_noJavaScriptUri_UNUSED(value)
+function _VirtualDom_noJavaScriptUri(value)
 {
 	return /^javascript:/i.test(value.replace(/\s/g,'')) ? '' : value;
 }
 
-function _VirtualDom_noJavaScriptUri(value)
+function _VirtualDom_noJavaScriptUri_UNUSED(value)
 {
 	return /^javascript:/i.test(value.replace(/\s/g,''))
 		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
 		: value;
 }
 
-function _VirtualDom_noJavaScriptOrHtmlUri_UNUSED(value)
+function _VirtualDom_noJavaScriptOrHtmlUri(value)
 {
 	return /^\s*(javascript:|data:text\/html)/i.test(value) ? '' : value;
 }
 
-function _VirtualDom_noJavaScriptOrHtmlUri(value)
+function _VirtualDom_noJavaScriptOrHtmlUri_UNUSED(value)
 {
 	return /^\s*(javascript:|data:text\/html)/i.test(value)
 		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
@@ -2704,9 +2704,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		message: func(record.message),
-		stopPropagation: record.stopPropagation,
-		preventDefault: record.preventDefault
+		u: func(record.u),
+		P: record.P,
+		M: record.M
 	}
 });
 
@@ -2974,11 +2974,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.message;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.stopPropagation;
+		var message = !tag ? value : tag < 3 ? value.a : value.u;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.P;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.preventDefault) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.M) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,15 +3928,15 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.az,
+		impl.aH,
+		impl.aF,
 		function(sendToApp, initialModel) {
-			var view = impl.view;
-			/**_UNUSED/
+			var view = impl.aI;
+			/**/
 			var domNode = args['node'];
 			//*/
-			/**/
+			/**_UNUSED/
 			var domNode = args && args['node'] ? args['node'] : _Debug_crash(0);
 			//*/
 			var currNode = _VirtualDom_virtualize(domNode);
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.az,
+		impl.aH,
+		impl.aF,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.setup && impl.setup(sendToApp)
-			var view = impl.view;
+			var divertHrefToApp = impl.N && impl.N(sendToApp)
+			var view = impl.aI;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3977,12 +3977,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.body);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.as);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.title) && (_VirtualDom_doc.title = title = doc.title);
+				(title !== doc.aG) && (_VirtualDom_doc.title = title = doc.aG);
 			});
 		}
 	);
@@ -4038,12 +4038,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.onUrlChange;
-	var onUrlRequest = impl.onUrlRequest;
+	var onUrlChange = impl.aB;
+	var onUrlRequest = impl.aC;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		setup: function(sendToApp)
+		N: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.protocol === next.protocol
-							&& curr.host === next.host
-							&& curr.port_.a === next.port_.a
+							&& curr.af === next.af
+							&& curr.X === next.X
+							&& curr.ac.a === next.ac.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		init: function(flags)
+		az: function(flags)
 		{
-			return A3(impl.init, flags, _Browser_getUrl(), key);
+			return A3(impl.az, flags, _Browser_getUrl(), key);
 		},
-		view: impl.view,
-		update: impl.update,
-		subscriptions: impl.subscriptions
+		aI: impl.aI,
+		aH: impl.aH,
+		aF: impl.aF
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { hidden: 'hidden', change: 'visibilitychange' }
+		? { ax: 'hidden', at: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { hidden: 'mozHidden', change: 'mozvisibilitychange' }
+		? { ax: 'mozHidden', at: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { hidden: 'msHidden', change: 'msvisibilitychange' }
+		? { ax: 'msHidden', at: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { hidden: 'webkitHidden', change: 'webkitvisibilitychange' }
-		: { hidden: 'hidden', change: 'visibilitychange' };
+		? { ax: 'webkitHidden', at: 'webkitvisibilitychange' }
+		: { ax: 'hidden', at: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		scene: _Browser_getScene(),
-		viewport: {
-			x: _Browser_window.pageXOffset,
-			y: _Browser_window.pageYOffset,
-			width: _Browser_doc.documentElement.clientWidth,
-			height: _Browser_doc.documentElement.clientHeight
+		aj: _Browser_getScene(),
+		am: {
+			ao: _Browser_window.pageXOffset,
+			ap: _Browser_window.pageYOffset,
+			an: _Browser_doc.documentElement.clientWidth,
+			W: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		width: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		height: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		an: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		W: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			scene: {
-				width: node.scrollWidth,
-				height: node.scrollHeight
+			aj: {
+				an: node.scrollWidth,
+				W: node.scrollHeight
 			},
-			viewport: {
-				x: node.scrollLeft,
-				y: node.scrollTop,
-				width: node.clientWidth,
-				height: node.clientHeight
+			am: {
+				ao: node.scrollLeft,
+				ap: node.scrollTop,
+				an: node.clientWidth,
+				W: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			scene: _Browser_getScene(),
-			viewport: {
-				x: x,
-				y: y,
-				width: _Browser_doc.documentElement.clientWidth,
-				height: _Browser_doc.documentElement.clientHeight
+			aj: _Browser_getScene(),
+			am: {
+				ao: x,
+				ap: y,
+				an: _Browser_doc.documentElement.clientWidth,
+				W: _Browser_doc.documentElement.clientHeight
 			},
-			element: {
-				x: x + rect.left,
-				y: y + rect.top,
-				width: rect.width,
-				height: rect.height
+			av: {
+				ao: x + rect.left,
+				ap: y + rect.top,
+				an: rect.width,
+				W: rect.height
 			}
 		};
 	});
@@ -4438,15 +4438,15 @@ function _Time_getZoneName()
 		callback(_Scheduler_succeed(name));
 	});
 }
-var $elm$core$Basics$EQ = {$: 'EQ'};
-var $elm$core$Basics$GT = {$: 'GT'};
-var $elm$core$Basics$LT = {$: 'LT'};
+var $elm$core$Basics$EQ = 1;
+var $elm$core$Basics$GT = 2;
+var $elm$core$Basics$LT = 0;
 var $elm$core$List$cons = _List_cons;
 var $elm$core$Dict$foldr = F3(
 	function (func, acc, t) {
 		foldr:
 		while (true) {
-			if (t.$ === 'RBEmpty_elm_builtin') {
+			if (t.$ === -2) {
 				return acc;
 			} else {
 				var key = t.b;
@@ -4491,7 +4491,7 @@ var $elm$core$Dict$keys = function (dict) {
 		dict);
 };
 var $elm$core$Set$toList = function (_v0) {
-	var dict = _v0.a;
+	var dict = _v0;
 	return $elm$core$Dict$keys(dict);
 };
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
@@ -4501,7 +4501,7 @@ var $elm$core$Array$foldr = F3(
 		var tail = _v0.d;
 		var helper = F2(
 			function (node, acc) {
-				if (node.$ === 'SubTree') {
+				if (!node.$) {
 					var subTree = node.a;
 					return A3($elm$core$Elm$JsArray$foldr, helper, acc, subTree);
 				} else {
@@ -4519,32 +4519,32 @@ var $elm$core$Array$toList = function (array) {
 	return A3($elm$core$Array$foldr, $elm$core$List$cons, _List_Nil, array);
 };
 var $elm$core$Result$Err = function (a) {
-	return {$: 'Err', a: a};
+	return {$: 1, a: a};
 };
 var $elm$json$Json$Decode$Failure = F2(
 	function (a, b) {
-		return {$: 'Failure', a: a, b: b};
+		return {$: 3, a: a, b: b};
 	});
 var $elm$json$Json$Decode$Field = F2(
 	function (a, b) {
-		return {$: 'Field', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $elm$json$Json$Decode$Index = F2(
 	function (a, b) {
-		return {$: 'Index', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var $elm$core$Result$Ok = function (a) {
-	return {$: 'Ok', a: a};
+	return {$: 0, a: a};
 };
 var $elm$json$Json$Decode$OneOf = function (a) {
-	return {$: 'OneOf', a: a};
+	return {$: 2, a: a};
 };
-var $elm$core$Basics$False = {$: 'False'};
+var $elm$core$Basics$False = 1;
 var $elm$core$Basics$add = _Basics_add;
 var $elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
+	return {$: 0, a: a};
 };
-var $elm$core$Maybe$Nothing = {$: 'Nothing'};
+var $elm$core$Maybe$Nothing = {$: 1};
 var $elm$core$String$all = _String_all;
 var $elm$core$Basics$and = _Basics_and;
 var $elm$core$Basics$append = _Utils_append;
@@ -4669,12 +4669,12 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 		errorToStringHelp:
 		while (true) {
 			switch (error.$) {
-				case 'Field':
+				case 0:
 					var f = error.a;
 					var err = error.b;
 					var isSimple = function () {
 						var _v1 = $elm$core$String$uncons(f);
-						if (_v1.$ === 'Nothing') {
+						if (_v1.$ === 1) {
 							return false;
 						} else {
 							var _v2 = _v1.a;
@@ -4689,7 +4689,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'Index':
+				case 1:
 					var i = error.a;
 					var err = error.b;
 					var indexName = '[' + ($elm$core$String$fromInt(i) + ']');
@@ -4698,7 +4698,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'OneOf':
+				case 2:
 					var errors = error.a;
 					if (!errors.b) {
 						return 'Ran into a Json.Decode.oneOf with no possibilities' + function () {
@@ -4762,7 +4762,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 var $elm$core$Array$branchFactor = 32;
 var $elm$core$Array$Array_elm_builtin = F4(
 	function (a, b, c, d) {
-		return {$: 'Array_elm_builtin', a: a, b: b, c: c, d: d};
+		return {$: 0, a: a, b: b, c: c, d: d};
 	});
 var $elm$core$Elm$JsArray$empty = _JsArray_empty;
 var $elm$core$Basics$ceiling = _Basics_ceiling;
@@ -4777,7 +4777,7 @@ var $elm$core$Array$shiftStep = $elm$core$Basics$ceiling(
 var $elm$core$Array$empty = A4($elm$core$Array$Array_elm_builtin, 0, $elm$core$Array$shiftStep, $elm$core$Elm$JsArray$empty, $elm$core$Elm$JsArray$empty);
 var $elm$core$Elm$JsArray$initialize = _JsArray_initialize;
 var $elm$core$Array$Leaf = function (a) {
-	return {$: 'Leaf', a: a};
+	return {$: 1, a: a};
 };
 var $elm$core$Basics$apL = F2(
 	function (f, x) {
@@ -4797,7 +4797,7 @@ var $elm$core$Basics$max = F2(
 	});
 var $elm$core$Basics$mul = _Basics_mul;
 var $elm$core$Array$SubTree = function (a) {
-	return {$: 'SubTree', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Elm$JsArray$initializeFromList = _JsArray_initializeFromList;
 var $elm$core$Array$compressNodes = F2(
@@ -4844,25 +4844,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.nodeListSize) {
+		if (!builder.c) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.tail),
+				$elm$core$Elm$JsArray$length(builder.f),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.tail);
+				builder.f);
 		} else {
-			var treeLen = builder.nodeListSize * $elm$core$Array$branchFactor;
+			var treeLen = builder.c * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.nodeList) : builder.nodeList;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.nodeListSize);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.g) : builder.g;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.c);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.tail) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.f) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.tail);
+				builder.f);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -4875,7 +4875,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{nodeList: nodeList, nodeListSize: (len / $elm$core$Array$branchFactor) | 0, tail: tail});
+					{g: nodeList, c: (len / $elm$core$Array$branchFactor) | 0, f: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -4905,9 +4905,9 @@ var $elm$core$Array$initialize = F2(
 			return A5($elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
-var $elm$core$Basics$True = {$: 'True'};
+var $elm$core$Basics$True = 0;
 var $elm$core$Result$isOk = function (result) {
-	if (result.$ === 'Ok') {
+	if (!result.$) {
 		return true;
 	} else {
 		return false;
@@ -4918,33 +4918,31 @@ var $elm$json$Json$Decode$map2 = _Json_map2;
 var $elm$json$Json$Decode$succeed = _Json_succeed;
 var $elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	switch (handler.$) {
-		case 'Normal':
+		case 0:
 			return 0;
-		case 'MayStopPropagation':
+		case 1:
 			return 1;
-		case 'MayPreventDefault':
+		case 2:
 			return 2;
 		default:
 			return 3;
 	}
 };
 var $elm$browser$Browser$External = function (a) {
-	return {$: 'External', a: a};
+	return {$: 1, a: a};
 };
 var $elm$browser$Browser$Internal = function (a) {
-	return {$: 'Internal', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Basics$identity = function (x) {
 	return x;
 };
-var $elm$browser$Browser$Dom$NotFound = function (a) {
-	return {$: 'NotFound', a: a};
-};
-var $elm$url$Url$Http = {$: 'Http'};
-var $elm$url$Url$Https = {$: 'Https'};
+var $elm$browser$Browser$Dom$NotFound = $elm$core$Basics$identity;
+var $elm$url$Url$Http = 0;
+var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
+		return {V: fragment, X: host, aa: path, ac: port_, af: protocol, ag: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -4980,7 +4978,7 @@ var $elm$url$Url$chompBeforePath = F5(
 					var i = _v0.a;
 					var _v1 = $elm$core$String$toInt(
 						A2($elm$core$String$dropLeft, i + 1, str));
-					if (_v1.$ === 'Nothing') {
+					if (_v1.$ === 1) {
 						return $elm$core$Maybe$Nothing;
 					} else {
 						var port_ = _v1;
@@ -5063,26 +5061,24 @@ var $elm$core$String$startsWith = _String_startsWith;
 var $elm$url$Url$fromString = function (str) {
 	return A2($elm$core$String$startsWith, 'http://', str) ? A2(
 		$elm$url$Url$chompAfterProtocol,
-		$elm$url$Url$Http,
+		0,
 		A2($elm$core$String$dropLeft, 7, str)) : (A2($elm$core$String$startsWith, 'https://', str) ? A2(
 		$elm$url$Url$chompAfterProtocol,
-		$elm$url$Url$Https,
+		1,
 		A2($elm$core$String$dropLeft, 8, str)) : $elm$core$Maybe$Nothing);
 };
 var $elm$core$Basics$never = function (_v0) {
 	never:
 	while (true) {
-		var nvr = _v0.a;
+		var nvr = _v0;
 		var $temp$_v0 = nvr;
 		_v0 = $temp$_v0;
 		continue never;
 	}
 };
-var $elm$core$Task$Perform = function (a) {
-	return {$: 'Perform', a: a};
-};
+var $elm$core$Task$Perform = $elm$core$Basics$identity;
 var $elm$core$Task$succeed = _Scheduler_succeed;
-var $elm$core$Task$init = $elm$core$Task$succeed(_Utils_Tuple0);
+var $elm$core$Task$init = $elm$core$Task$succeed(0);
 var $elm$core$List$foldrHelper = F4(
 	function (fn, acc, ctr, ls) {
 		if (!ls.b) {
@@ -5188,7 +5184,7 @@ var $elm$core$Task$sequence = function (tasks) {
 var $elm$core$Platform$sendToApp = _Platform_sendToApp;
 var $elm$core$Task$spawnCmd = F2(
 	function (router, _v0) {
-		var task = _v0.a;
+		var task = _v0;
 		return _Scheduler_spawn(
 			A2(
 				$elm$core$Task$andThen,
@@ -5200,7 +5196,7 @@ var $elm$core$Task$onEffects = F3(
 		return A2(
 			$elm$core$Task$map,
 			function (_v0) {
-				return _Utils_Tuple0;
+				return 0;
 			},
 			$elm$core$Task$sequence(
 				A2(
@@ -5210,41 +5206,31 @@ var $elm$core$Task$onEffects = F3(
 	});
 var $elm$core$Task$onSelfMsg = F3(
 	function (_v0, _v1, _v2) {
-		return $elm$core$Task$succeed(_Utils_Tuple0);
+		return $elm$core$Task$succeed(0);
 	});
 var $elm$core$Task$cmdMap = F2(
 	function (tagger, _v0) {
-		var task = _v0.a;
-		return $elm$core$Task$Perform(
-			A2($elm$core$Task$map, tagger, task));
+		var task = _v0;
+		return A2($elm$core$Task$map, tagger, task);
 	});
 _Platform_effectManagers['Task'] = _Platform_createManager($elm$core$Task$init, $elm$core$Task$onEffects, $elm$core$Task$onSelfMsg, $elm$core$Task$cmdMap);
 var $elm$core$Task$command = _Platform_leaf('Task');
 var $elm$core$Task$perform = F2(
 	function (toMessage, task) {
 		return $elm$core$Task$command(
-			$elm$core$Task$Perform(
-				A2($elm$core$Task$map, toMessage, task)));
+			A2($elm$core$Task$map, toMessage, task));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$Blackjack$Model = F4(
-	function (you, dealer, deck, state) {
-		return {dealer: dealer, deck: deck, state: state, you: you};
-	});
-var $author$project$Blackjack$Play = {$: 'Play'};
-var $author$project$Blackjack$Player = F3(
-	function (hand, cash, bet) {
-		return {bet: bet, cash: cash, hand: hand};
-	});
+var $author$project$Blackjack$Landing = function (a) {
+	return {$: 0, a: a};
+};
 var $author$project$Blackjack$Start = function (a) {
-	return {$: 'Start', a: a};
+	return {$: 0, a: a};
 };
-var $elm$random$Random$Generate = function (a) {
-	return {$: 'Generate', a: a};
-};
+var $elm$random$Random$Generate = $elm$core$Basics$identity;
 var $elm$random$Random$Seed = F2(
 	function (a, b) {
-		return {$: 'Seed', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
 var $elm$random$Random$next = function (_v0) {
@@ -5262,23 +5248,21 @@ var $elm$random$Random$initialSeed = function (x) {
 		A2($elm$random$Random$Seed, state2, incr));
 };
 var $elm$time$Time$Name = function (a) {
-	return {$: 'Name', a: a};
+	return {$: 0, a: a};
 };
 var $elm$time$Time$Offset = function (a) {
-	return {$: 'Offset', a: a};
+	return {$: 1, a: a};
 };
 var $elm$time$Time$Zone = F2(
 	function (a, b) {
-		return {$: 'Zone', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $elm$time$Time$customZone = $elm$time$Time$Zone;
-var $elm$time$Time$Posix = function (a) {
-	return {$: 'Posix', a: a};
-};
-var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
+var $elm$time$Time$Posix = $elm$core$Basics$identity;
+var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
 var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
 var $elm$time$Time$posixToMillis = function (_v0) {
-	var millis = _v0.a;
+	var millis = _v0;
 	return millis;
 };
 var $elm$random$Random$init = A2(
@@ -5291,7 +5275,7 @@ var $elm$random$Random$init = A2(
 	$elm$time$Time$now);
 var $elm$random$Random$step = F2(
 	function (_v0, seed) {
-		var generator = _v0.a;
+		var generator = _v0;
 		return generator(seed);
 	});
 var $elm$random$Random$onEffects = F3(
@@ -5299,7 +5283,7 @@ var $elm$random$Random$onEffects = F3(
 		if (!commands.b) {
 			return $elm$core$Task$succeed(seed);
 		} else {
-			var generator = commands.a.a;
+			var generator = commands.a;
 			var rest = commands.b;
 			var _v1 = A2($elm$random$Random$step, generator, seed);
 			var value = _v1.a;
@@ -5316,40 +5300,35 @@ var $elm$random$Random$onSelfMsg = F3(
 	function (_v0, _v1, seed) {
 		return $elm$core$Task$succeed(seed);
 	});
-var $elm$random$Random$Generator = function (a) {
-	return {$: 'Generator', a: a};
-};
+var $elm$random$Random$Generator = $elm$core$Basics$identity;
 var $elm$random$Random$map = F2(
 	function (func, _v0) {
-		var genA = _v0.a;
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v1 = genA(seed0);
-				var a = _v1.a;
-				var seed1 = _v1.b;
-				return _Utils_Tuple2(
-					func(a),
-					seed1);
-			});
+		var genA = _v0;
+		return function (seed0) {
+			var _v1 = genA(seed0);
+			var a = _v1.a;
+			var seed1 = _v1.b;
+			return _Utils_Tuple2(
+				func(a),
+				seed1);
+		};
 	});
 var $elm$random$Random$cmdMap = F2(
 	function (func, _v0) {
-		var generator = _v0.a;
-		return $elm$random$Random$Generate(
-			A2($elm$random$Random$map, func, generator));
+		var generator = _v0;
+		return A2($elm$random$Random$map, func, generator);
 	});
 _Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
 var $elm$random$Random$command = _Platform_leaf('Random');
 var $elm$random$Random$generate = F2(
 	function (tagger, generator) {
 		return $elm$random$Random$command(
-			$elm$random$Random$Generate(
-				A2($elm$random$Random$map, tagger, generator)));
+			A2($elm$random$Random$map, tagger, generator));
 	});
-var $author$project$Blackjack$Clubs = {$: 'Clubs'};
-var $author$project$Blackjack$Diamonds = {$: 'Diamonds'};
-var $author$project$Blackjack$Hearts = {$: 'Hearts'};
-var $author$project$Blackjack$Spades = {$: 'Spades'};
+var $author$project$Blackjack$Clubs = 2;
+var $author$project$Blackjack$Diamonds = 1;
+var $author$project$Blackjack$Hearts = 3;
+var $author$project$Blackjack$Spades = 0;
 var $elm$core$List$append = F2(
 	function (xs, ys) {
 		if (!ys.b) {
@@ -5363,7 +5342,7 @@ var $elm$core$List$concat = function (lists) {
 };
 var $author$project$Blackjack$Card = F2(
 	function (a, b) {
-		return {$: 'Card', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $author$project$Blackjack$initSuit = function (suit) {
 	return A2(
@@ -5384,7 +5363,7 @@ var $elm$core$Array$fromListHelp = F3(
 				return A2(
 					$elm$core$Array$builderToArray,
 					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
+					{g: nodeList, c: nodeListSize, f: jsArray});
 			} else {
 				var $temp$list = remainingItems,
 					$temp$nodeList = A2(
@@ -5418,35 +5397,34 @@ var $elm$random$Random$peel = function (_v0) {
 };
 var $elm$random$Random$int = F2(
 	function (a, b) {
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
-				var lo = _v0.a;
-				var hi = _v0.b;
-				var range = (hi - lo) + 1;
-				if (!((range - 1) & range)) {
-					return _Utils_Tuple2(
-						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
-						$elm$random$Random$next(seed0));
-				} else {
-					var threshhold = (((-range) >>> 0) % range) >>> 0;
-					var accountForBias = function (seed) {
-						accountForBias:
-						while (true) {
-							var x = $elm$random$Random$peel(seed);
-							var seedN = $elm$random$Random$next(seed);
-							if (_Utils_cmp(x, threshhold) < 0) {
-								var $temp$seed = seedN;
-								seed = $temp$seed;
-								continue accountForBias;
-							} else {
-								return _Utils_Tuple2((x % range) + lo, seedN);
-							}
+		return function (seed0) {
+			var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+			var lo = _v0.a;
+			var hi = _v0.b;
+			var range = (hi - lo) + 1;
+			if (!((range - 1) & range)) {
+				return _Utils_Tuple2(
+					(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+					$elm$random$Random$next(seed0));
+			} else {
+				var threshhold = (((-range) >>> 0) % range) >>> 0;
+				var accountForBias = function (seed) {
+					accountForBias:
+					while (true) {
+						var x = $elm$random$Random$peel(seed);
+						var seedN = $elm$random$Random$next(seed);
+						if (_Utils_cmp(x, threshhold) < 0) {
+							var $temp$seed = seedN;
+							seed = $temp$seed;
+							continue accountForBias;
+						} else {
+							return _Utils_Tuple2((x % range) + lo, seedN);
 						}
-					};
-					return accountForBias(seed0);
-				}
-			});
+					}
+				};
+				return accountForBias(seed0);
+			}
+		};
 	});
 var $elm$core$Array$length = function (_v0) {
 	var len = _v0.a;
@@ -5476,18 +5454,17 @@ var $elm$random$Random$listHelp = F4(
 	});
 var $elm$random$Random$list = F2(
 	function (n, _v0) {
-		var gen = _v0.a;
-		return $elm$random$Random$Generator(
-			function (seed) {
-				return A4($elm$random$Random$listHelp, _List_Nil, n, gen, seed);
-			});
+		var gen = _v0;
+		return function (seed) {
+			return A4($elm$random$Random$listHelp, _List_Nil, n, gen, seed);
+		};
 	});
 var $elm$core$Basics$compare = _Utils_compare;
 var $elm$core$Dict$get = F2(
 	function (targetKey, dict) {
 		get:
 		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
+			if (dict.$ === -2) {
 				return $elm$core$Maybe$Nothing;
 			} else {
 				var key = dict.b;
@@ -5495,14 +5472,14 @@ var $elm$core$Dict$get = F2(
 				var left = dict.d;
 				var right = dict.e;
 				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
-				switch (_v1.$) {
-					case 'LT':
+				switch (_v1) {
+					case 0:
 						var $temp$targetKey = targetKey,
 							$temp$dict = left;
 						targetKey = $temp$targetKey;
 						dict = $temp$dict;
 						continue get;
-					case 'EQ':
+					case 1:
 						return $elm$core$Maybe$Just(value);
 					default:
 						var $temp$targetKey = targetKey,
@@ -5519,7 +5496,7 @@ var $owanturist$elm_union_find$UnionFind$findFast = F2(
 		findFast:
 		while (true) {
 			var _v0 = A2($elm$core$Dict$get, id, dict);
-			if (_v0.$ === 'Nothing') {
+			if (_v0.$ === 1) {
 				return id;
 			} else {
 				var cursor = _v0.a;
@@ -5549,7 +5526,7 @@ var $elm$core$Array$getHelp = F3(
 		while (true) {
 			var pos = $elm$core$Array$bitMask & (index >>> shift);
 			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_v0.$ === 'SubTree') {
+			if (!_v0.$) {
 				var subTree = _v0.a;
 				var $temp$shift = shift - $elm$core$Array$shiftStep,
 					$temp$index = index,
@@ -5587,30 +5564,30 @@ var $elm$core$Array$isEmpty = function (_v0) {
 var $elm$core$Basics$modBy = _Basics_modBy;
 var $owanturist$elm_union_find$UnionFind$QuickUnionPathCompression = F2(
 	function (a, b) {
-		return {$: 'QuickUnionPathCompression', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
-var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
+var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 var $owanturist$elm_union_find$UnionFind$quickUnionPathCompression = A2($owanturist$elm_union_find$UnionFind$QuickUnionPathCompression, 0, $elm$core$Dict$empty);
 var $elm$core$Tuple$second = function (_v0) {
 	var y = _v0.b;
 	return y;
 };
-var $elm$core$Dict$Black = {$: 'Black'};
+var $elm$core$Dict$Black = 1;
 var $elm$core$Dict$RBNode_elm_builtin = F5(
 	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
+		return {$: -1, a: a, b: b, c: c, d: d, e: e};
 	});
-var $elm$core$Dict$Red = {$: 'Red'};
+var $elm$core$Dict$Red = 0;
 var $elm$core$Dict$balance = F5(
 	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
+		if ((right.$ === -1) && (!right.a)) {
 			var _v1 = right.a;
 			var rK = right.b;
 			var rV = right.c;
 			var rLeft = right.d;
 			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+			if ((left.$ === -1) && (!left.a)) {
 				var _v3 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -5618,22 +5595,22 @@ var $elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
+					0,
 					key,
 					value,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rLeft, rRight));
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, rK, rV, rLeft, rRight));
 			} else {
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
 					color,
 					rK,
 					rV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, left, rLeft),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, key, value, left, rLeft),
 					rRight);
 			}
 		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
+			if ((((left.$ === -1) && (!left.a)) && (left.d.$ === -1)) && (!left.d.a)) {
 				var _v5 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -5646,11 +5623,11 @@ var $elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
+					0,
 					lK,
 					lV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, lRight, right));
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, llK, llV, llLeft, llRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, key, value, lRight, right));
 			} else {
 				return A5($elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
 			}
@@ -5658,8 +5635,8 @@ var $elm$core$Dict$balance = F5(
 	});
 var $elm$core$Dict$insertHelp = F3(
 	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
+		if (dict.$ === -2) {
+			return A5($elm$core$Dict$RBNode_elm_builtin, 0, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
 		} else {
 			var nColor = dict.a;
 			var nKey = dict.b;
@@ -5667,8 +5644,8 @@ var $elm$core$Dict$insertHelp = F3(
 			var nLeft = dict.d;
 			var nRight = dict.e;
 			var _v1 = A2($elm$core$Basics$compare, key, nKey);
-			switch (_v1.$) {
-				case 'LT':
+			switch (_v1) {
+				case 0:
 					return A5(
 						$elm$core$Dict$balance,
 						nColor,
@@ -5676,7 +5653,7 @@ var $elm$core$Dict$insertHelp = F3(
 						nValue,
 						A3($elm$core$Dict$insertHelp, key, value, nLeft),
 						nRight);
-				case 'EQ':
+				case 1:
 					return A5($elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
 				default:
 					return A5(
@@ -5692,13 +5669,13 @@ var $elm$core$Dict$insertHelp = F3(
 var $elm$core$Dict$insert = F3(
 	function (key, value, dict) {
 		var _v0 = A3($elm$core$Dict$insertHelp, key, value, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
+		if ((_v0.$ === -1) && (!_v0.a)) {
 			var _v1 = _v0.a;
 			var k = _v0.b;
 			var v = _v0.c;
 			var l = _v0.d;
 			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
+			return A5($elm$core$Dict$RBNode_elm_builtin, 1, k, v, l, r);
 		} else {
 			var x = _v0;
 			return x;
@@ -5707,7 +5684,7 @@ var $elm$core$Dict$insert = F3(
 var $owanturist$elm_union_find$UnionFind$findCompressed = F2(
 	function (id, dict) {
 		var _v0 = A2($elm$core$Dict$get, id, dict);
-		if (_v0.$ === 'Nothing') {
+		if (_v0.$ === 1) {
 			return _Utils_Tuple2(
 				id,
 				A3($elm$core$Dict$insert, id, id, dict));
@@ -5754,7 +5731,7 @@ var $elm_community$random_extra$Utils$selectUniqByIndexes = F2(
 					modByLength(leaderOfElement + 1),
 					uf);
 				var _v0 = A2($elm$core$Array$get, leaderOfElement, values);
-				if (_v0.$ === 'Nothing') {
+				if (_v0.$ === 1) {
 					return _Utils_Tuple2(uf, acc);
 				} else {
 					var value = _v0.a;
@@ -5782,19 +5759,14 @@ var $elm_community$random_extra$Random$List$shuffle = function (list) {
 };
 var $author$project$Blackjack$initDeck = function () {
 	var suits = _List_fromArray(
-		[$author$project$Blackjack$Spades, $author$project$Blackjack$Diamonds, $author$project$Blackjack$Clubs, $author$project$Blackjack$Hearts]);
+		[0, 1, 2, 3]);
 	return $elm_community$random_extra$Random$List$shuffle(
 		$elm$core$List$concat(
 			A2($elm$core$List$map, $author$project$Blackjack$initSuit, suits)));
 }();
 var $author$project$Blackjack$init = function (_v0) {
 	return _Utils_Tuple2(
-		A4(
-			$author$project$Blackjack$Model,
-			A3($author$project$Blackjack$Player, _List_Nil, 100, 0),
-			A3($author$project$Blackjack$Player, _List_Nil, 0, 0),
-			_List_Nil,
-			$author$project$Blackjack$Play),
+		$author$project$Blackjack$Landing(_List_Nil),
 		A2($elm$random$Random$generate, $author$project$Blackjack$Start, $author$project$Blackjack$initDeck));
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5802,25 +5774,60 @@ var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Blackjack$subscriptions = function (model) {
 	return $elm$core$Platform$Sub$none;
 };
-var $author$project$Blackjack$Bust = {$: 'Bust'};
-var $author$project$Blackjack$Dealer = {$: 'Dealer'};
-var $author$project$Blackjack$bet = F2(
-	function (value, model) {
-		var you = model.you;
-		return _Utils_update(
-			model,
-			{
-				you: _Utils_update(
-					you,
-					{bet: you.bet + value, cash: you.cash - value})
-			});
+var $author$project$Blackjack$Betting = function (a) {
+	return {$: 1, a: a};
+};
+var $author$project$Blackjack$Moving = function (a) {
+	return {$: 1, a: a};
+};
+var $author$project$Blackjack$Playing = function (a) {
+	return {$: 2, a: a};
+};
+var $author$project$Blackjack$ScoreHand = 3;
+var $author$project$Blackjack$cardToEnd = F2(
+	function (deck, card) {
+		return A3(
+			$elm$core$List$foldr,
+			$elm$core$List$cons,
+			_List_fromArray(
+				[card]),
+			deck);
 	});
-var $author$project$Blackjack$Draw = {$: 'Draw'};
-var $author$project$Blackjack$End = {$: 'End'};
-var $author$project$Blackjack$Lose = {$: 'Lose'};
-var $author$project$Blackjack$Win = {$: 'Win'};
+var $author$project$Blackjack$hit = function (game) {
+	var player = game.e;
+	var _v0 = game.i;
+	if (_v0.b) {
+		var c = _v0.a;
+		var cd = _v0.b;
+		return _Utils_update(
+			game,
+			{
+				i: cd,
+				e: _Utils_update(
+					player,
+					{
+						m: A2($author$project$Blackjack$cardToEnd, player.m, c)
+					})
+			});
+	} else {
+		return game;
+	}
+};
+var $author$project$Blackjack$Back = {$: 1};
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $elm$core$Basics$neq = _Utils_notEqual;
 var $author$project$Blackjack$cardValue = function (card) {
-	if (card.$ === 'Card') {
+	if (!card.$) {
 		var face = card.b;
 		return (face > 10) ? 10 : ((face === 1) ? 11 : face);
 	} else {
@@ -5860,250 +5867,310 @@ var $elm$core$List$member = F2(
 var $elm$core$List$sum = function (numbers) {
 	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
 };
-var $author$project$Blackjack$score = function (player) {
-	var raw = A2($elm$core$List$map, $author$project$Blackjack$cardValue, player.hand);
+var $author$project$Blackjack$score = function (hand) {
+	var raw = A2($elm$core$List$map, $author$project$Blackjack$cardValue, hand);
 	var rawScore = $elm$core$List$sum(raw);
 	return ((rawScore > 21) && A2($elm$core$List$member, 11, raw)) ? (rawScore - 10) : rawScore;
 };
-var $author$project$Blackjack$game = function (model) {
-	var you = model.you;
-	var playerScore = $author$project$Blackjack$score(model.you);
-	var dealerScore = $author$project$Blackjack$score(model.dealer);
-	return (you.cash < 0) ? _Utils_update(
-		model,
-		{state: $author$project$Blackjack$End}) : ((playerScore > 21) ? _Utils_update(
-		model,
-		{
-			state: $author$project$Blackjack$Bust,
-			you: _Utils_update(
-				you,
-				{bet: 0, cash: you.cash})
-		}) : (((_Utils_cmp(playerScore, dealerScore) > 0) || (dealerScore > 21)) ? _Utils_update(
-		model,
-		{
-			state: $author$project$Blackjack$Win,
-			you: _Utils_update(
-				you,
-				{bet: 0, cash: you.cash + (2 * you.bet)})
-		}) : (_Utils_eq(playerScore, dealerScore) ? _Utils_update(
-		model,
-		{
-			state: $author$project$Blackjack$Draw,
-			you: _Utils_update(
-				you,
-				{bet: 0, cash: you.cash + you.bet})
-		}) : _Utils_update(
-		model,
-		{
-			state: $author$project$Blackjack$Lose,
-			you: _Utils_update(
-				you,
-				{bet: 0, cash: you.cash})
-		}))));
-};
-var $author$project$Blackjack$hit = function (model) {
-	var you = model.you;
-	var _v0 = model.deck;
-	if (_v0.b) {
-		var c = _v0.a;
-		var cd = _v0.b;
-		return _Utils_update(
-			model,
-			{
-				deck: cd,
-				you: _Utils_update(
-					you,
+var $author$project$Blackjack$playDealer = function (game) {
+	playDealer:
+	while (true) {
+		var dealerScore = $author$project$Blackjack$score(game.o);
+		var dealer = A2(
+			$elm$core$List$filter,
+			$elm$core$Basics$neq($author$project$Blackjack$Back),
+			game.o);
+		if (dealerScore < 17) {
+			var _v0 = game.i;
+			if (_v0.b) {
+				var c = _v0.a;
+				var cd = _v0.b;
+				var $temp$game = _Utils_update(
+					game,
 					{
-						hand: A3(
-							$elm$core$List$foldr,
-							$elm$core$List$cons,
-							_List_fromArray(
-								[c]),
-							you.hand)
-					})
-			});
-	} else {
-		return model;
+						o: A2($author$project$Blackjack$cardToEnd, dealer, c),
+						i: cd
+					});
+				game = $temp$game;
+				continue playDealer;
+			} else {
+				return game;
+			}
+		} else {
+			return game;
+		}
 	}
 };
-var $author$project$Blackjack$Back = {$: 'Back'};
-var $elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			$elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
+var $author$project$Blackjack$stand = function (game) {
+	var dealerPlays = $author$project$Blackjack$playDealer(game);
+	return $author$project$Blackjack$Playing(dealerPlays);
+};
+var $author$project$Blackjack$double = function (game) {
+	var player = game.e;
+	var newPlayer = _Utils_update(
+		player,
+		{a: player.a * 2, b: player.b - player.a});
+	var newGame = _Utils_update(
+		game,
+		{e: newPlayer});
+	return $author$project$Blackjack$stand(
+		$author$project$Blackjack$hit(game));
+};
+var $author$project$Blackjack$getGame = function (model) {
+	switch (model.$) {
+		case 1:
+			var game = model.a;
+			return game;
+		case 2:
+			var game = model.a;
+			return game;
+		case 3:
+			var game = model.a;
+			return game;
+		default:
+			return {
+				o: _List_Nil,
+				i: _List_Nil,
+				e: {a: 0, b: 0, m: _List_Nil}
+			};
+	}
+};
+var $author$project$Blackjack$playerBet = F2(
+	function (player, value) {
+		return (_Utils_cmp(player.b, value) > -1) ? _Utils_update(
+			player,
+			{a: player.a + value, b: player.b - value}) : player;
 	});
-var $elm$core$Basics$neq = _Utils_notEqual;
-var $author$project$Blackjack$new = function (model) {
-	var playerHand = model.you.hand;
-	var dealerHand = A2(
-		$elm$core$List$filter,
-		$elm$core$Basics$neq($author$project$Blackjack$Back),
-		model.dealer.hand);
-	var _v0 = model.deck;
-	if ((_v0.b && _v0.b.b) && _v0.b.b.b) {
-		var c = _v0.a;
-		var _v1 = _v0.b;
+var $author$project$Blackjack$makeBet = F2(
+	function (game, value) {
+		var player = game.e;
+		return _Utils_update(
+			game,
+			{
+				e: A2($author$project$Blackjack$playerBet, player, value)
+			});
+	});
+var $elm$core$Platform$Cmd$batch = _Platform_batch;
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$Blackjack$End = function (a) {
+	return {$: 4, a: a};
+};
+var $author$project$Blackjack$Scoring = F2(
+	function (a, b) {
+		return {$: 3, a: a, b: b};
+	});
+var $author$project$Blackjack$Win = 0;
+var $author$project$Blackjack$Bust = 3;
+var $author$project$Blackjack$Draw = 1;
+var $author$project$Blackjack$Lose = 2;
+var $author$project$Blackjack$gameOutcome = function (game) {
+	var playerScore = $author$project$Blackjack$score(game.e.m);
+	var dealerScore = $author$project$Blackjack$score(game.o);
+	return (playerScore > 21) ? 3 : ((dealerScore > 21) ? 0 : (_Utils_eq(playerScore, dealerScore) ? 1 : ((_Utils_cmp(playerScore, dealerScore) > 0) ? 0 : 2)));
+};
+var $author$project$Blackjack$getDeck = function (model) {
+	switch (model.$) {
+		case 0:
+			var deck = model.a;
+			return deck;
+		case 1:
+			var game = model.a;
+			return game.i;
+		case 2:
+			var game = model.a;
+			return game.i;
+		case 3:
+			var game = model.a;
+			var outcome = model.b;
+			return game.i;
+		default:
+			var game = model.a;
+			return game.i;
+	}
+};
+var $author$project$Blackjack$Game = F3(
+	function (you, dealer, deck) {
+		return {o: dealer, i: deck, e: you};
+	});
+var $author$project$Blackjack$initGame = function (deck) {
+	if ((deck.b && deck.b.b) && deck.b.b.b) {
+		var c = deck.a;
+		var _v1 = deck.b;
 		var c2 = _v1.a;
 		var _v2 = _v1.b;
 		var c3 = _v2.a;
 		var cd = _v2.b;
-		return _Utils_update(
-			model,
-			{
-				dealer: A3(
-					$author$project$Blackjack$Player,
-					_List_fromArray(
-						[c3, $author$project$Blackjack$Back]),
-					0,
-					0),
-				deck: _Utils_ap(
-					cd,
-					_Utils_ap(playerHand, dealerHand)),
-				state: $author$project$Blackjack$Play,
-				you: A3(
-					$author$project$Blackjack$Player,
-					_List_fromArray(
-						[c, c2]),
-					model.you.cash - 1,
-					1)
-			});
+		return {
+			o: _List_fromArray(
+				[c3, $author$project$Blackjack$Back]),
+			i: cd,
+			e: {
+				a: 0,
+				b: 100,
+				m: _List_fromArray(
+					[c, c2])
+			}
+		};
 	} else {
-		return model;
+		return A3(
+			$author$project$Blackjack$Game,
+			{a: 0, b: 0, m: _List_Nil},
+			_List_Nil,
+			_List_Nil);
 	}
 };
-var $elm$core$Platform$Cmd$batch = _Platform_batch;
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$Blackjack$stand = function (model) {
-	stand:
-	while (true) {
-		var dealerScore = $author$project$Blackjack$score(model.dealer);
+var $author$project$Blackjack$isGameOver = F2(
+	function (game, outcome) {
+		return ((outcome === 3) || (outcome === 2)) ? (_Utils_cmp(game.e.a, game.e.b) > 0) : false;
+	});
+var $author$project$Blackjack$getBets = F2(
+	function (player, outcome) {
+		switch (outcome) {
+			case 0:
+				return _Utils_update(
+					player,
+					{a: 0, b: player.b + (2 * player.a)});
+			case 1:
+				return _Utils_update(
+					player,
+					{a: 0, b: player.b + player.a});
+			case 2:
+				return _Utils_update(
+					player,
+					{a: 0, b: player.b - player.a});
+			default:
+				return _Utils_update(
+					player,
+					{a: 0, b: player.b - player.a});
+		}
+	});
+var $author$project$Blackjack$nextGame = F2(
+	function (game, outcome) {
+		var playerHand = game.e.m;
+		var player = A2($author$project$Blackjack$getBets, game.e, outcome);
 		var dealerHand = A2(
 			$elm$core$List$filter,
 			$elm$core$Basics$neq($author$project$Blackjack$Back),
-			model.dealer.hand);
-		var dealer = model.dealer;
-		if (dealerScore < 17) {
-			var _v0 = model.deck;
-			if (_v0.b) {
-				var c = _v0.a;
-				var cd = _v0.b;
-				var $temp$model = _Utils_update(
-					model,
-					{
-						dealer: _Utils_update(
-							dealer,
-							{
-								hand: A3(
-									$elm$core$List$foldr,
-									$elm$core$List$cons,
-									_List_fromArray(
-										[c]),
-									dealerHand)
-							}),
-						deck: cd
-					});
-				model = $temp$model;
-				continue stand;
-			} else {
-				return model;
-			}
+			game.o);
+		var _v0 = game.i;
+		if ((_v0.b && _v0.b.b) && _v0.b.b.b) {
+			var c = _v0.a;
+			var _v1 = _v0.b;
+			var c2 = _v1.a;
+			var _v2 = _v1.b;
+			var c3 = _v2.a;
+			var cd = _v2.b;
+			return _Utils_update(
+				game,
+				{
+					o: _List_fromArray(
+						[c3, $author$project$Blackjack$Back]),
+					i: _Utils_ap(
+						cd,
+						_Utils_ap(playerHand, dealerHand)),
+					e: _Utils_update(
+						player,
+						{
+							m: _List_fromArray(
+								[c, c2])
+						})
+				});
 		} else {
-			return model;
+			return game;
 		}
-	}
-};
+	});
+var $author$project$Blackjack$updateMoving = F2(
+	function (moveTo, model) {
+		var game = $author$project$Blackjack$getGame(model);
+		var deck = $author$project$Blackjack$getDeck(model);
+		switch (moveTo) {
+			case 0:
+				return _Utils_Tuple2(
+					$author$project$Blackjack$Betting(
+						$author$project$Blackjack$initGame(deck)),
+					$elm$core$Platform$Cmd$none);
+			case 1:
+				var outcome = function () {
+					if (model.$ === 3) {
+						var result = model.b;
+						return result;
+					} else {
+						return 0;
+					}
+				}();
+				return _Utils_Tuple2(
+					$author$project$Blackjack$Betting(
+						A2($author$project$Blackjack$nextGame, game, outcome)),
+					$elm$core$Platform$Cmd$none);
+			case 2:
+				return (game.e.a > 0) ? _Utils_Tuple2(
+					$author$project$Blackjack$Playing(game),
+					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+			case 3:
+				var result = $author$project$Blackjack$gameOutcome(game);
+				var gameOver = A2($author$project$Blackjack$isGameOver, game, result);
+				return gameOver ? _Utils_Tuple2(
+					$author$project$Blackjack$End(game),
+					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(
+					A2($author$project$Blackjack$Scoring, game, result),
+					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(
+					$author$project$Blackjack$Landing(_List_Nil),
+					A2($elm$random$Random$generate, $author$project$Blackjack$Start, $author$project$Blackjack$initDeck));
+		}
+	});
 var $author$project$Blackjack$update = F2(
 	function (msg, model) {
-		update:
-		while (true) {
-			switch (msg.$) {
-				case 'Start':
-					var shuffledDeck = msg.a;
-					return _Utils_Tuple2(
-						$author$project$Blackjack$new(
-							_Utils_update(
-								model,
-								{deck: shuffledDeck})),
-						$elm$core$Platform$Cmd$none);
-				case 'New':
-					return _Utils_Tuple2(
-						$author$project$Blackjack$new(model),
-						$elm$core$Platform$Cmd$none);
-				case 'Bet':
-					var value = msg.a;
-					return _Utils_Tuple2(
-						A2($author$project$Blackjack$bet, value, model),
-						$elm$core$Platform$Cmd$none);
-				case 'Hit':
-					var newModel = $author$project$Blackjack$hit(model);
-					if ($author$project$Blackjack$score(newModel.you) > 21) {
-						var $temp$msg = $author$project$Blackjack$Dealer,
-							$temp$model = _Utils_update(
-							newModel,
-							{state: $author$project$Blackjack$Bust});
-						msg = $temp$msg;
-						model = $temp$model;
-						continue update;
-					} else {
-						return _Utils_Tuple2(newModel, $elm$core$Platform$Cmd$none);
-					}
-				default:
-					return _Utils_Tuple2(
-						$author$project$Blackjack$game(
-							$author$project$Blackjack$stand(model)),
-						$elm$core$Platform$Cmd$none);
-			}
+		switch (msg.$) {
+			case 0:
+				var shuffledDeck = msg.a;
+				return _Utils_Tuple2(
+					$author$project$Blackjack$Landing(shuffledDeck),
+					$elm$core$Platform$Cmd$none);
+			case 1:
+				var moveTo = msg.a;
+				return A2($author$project$Blackjack$updateMoving, moveTo, model);
+			default:
+				var action = msg.a;
+				return A2($author$project$Blackjack$updateAction, action, model);
 		}
 	});
-var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$Blackjack$viewAccount = function (you) {
-	return A2(
-		$elm$html$Html$div,
-		_List_Nil,
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(
-						'Cash: $' + $elm$core$String$fromInt(you.cash))
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(
-						'Bet value: $' + $elm$core$String$fromInt(you.bet))
-					]))
-			]));
-};
-var $author$project$Blackjack$Bet = function (a) {
-	return {$: 'Bet', a: a};
-};
-var $elm$html$Html$button = _VirtualDom_node('button');
-var $elm$json$Json$Encode$string = _Json_wrap;
-var $elm$html$Html$Attributes$stringProperty = F2(
-	function (key, string) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$string(string));
+var $author$project$Blackjack$updateAction = F2(
+	function (action, model) {
+		var game = $author$project$Blackjack$getGame(model);
+		switch (action.$) {
+			case 0:
+				var value = action.a;
+				return _Utils_Tuple2(
+					$author$project$Blackjack$Betting(
+						A2($author$project$Blackjack$makeBet, game, value)),
+					$elm$core$Platform$Cmd$none);
+			case 1:
+				var newGame = $author$project$Blackjack$hit(game);
+				return ($author$project$Blackjack$score(newGame.e.m) > 21) ? A2(
+					$author$project$Blackjack$update,
+					$author$project$Blackjack$Moving(3),
+					$author$project$Blackjack$Playing(newGame)) : _Utils_Tuple2(
+					$author$project$Blackjack$Playing(newGame),
+					$elm$core$Platform$Cmd$none);
+			case 2:
+				return A2(
+					$author$project$Blackjack$update,
+					$author$project$Blackjack$Moving(3),
+					$author$project$Blackjack$double(game));
+			default:
+				return A2(
+					$author$project$Blackjack$update,
+					$author$project$Blackjack$Moving(3),
+					$author$project$Blackjack$stand(game));
+		}
 	});
-var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $elm$html$Html$li = _VirtualDom_node('li');
+var $author$project$Blackjack$PlayHand = 2;
+var $elm$html$Html$button = _VirtualDom_node('button');
+var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
+	return {$: 0, a: a};
 };
 var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $elm$html$Html$Events$on = F2(
@@ -6119,6 +6186,24 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Blackjack$Bet = function (a) {
+	return {$: 0, a: a};
+};
+var $author$project$Blackjack$Doing = function (a) {
+	return {$: 2, a: a};
+};
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$html$Html$ul = _VirtualDom_node('ul');
 var $author$project$Blackjack$viewBets = A2(
 	$elm$html$Html$ul,
@@ -6138,7 +6223,8 @@ var $author$project$Blackjack$viewBets = A2(
 					_List_fromArray(
 						[
 							$elm$html$Html$Events$onClick(
-							$author$project$Blackjack$Bet(1))
+							$author$project$Blackjack$Doing(
+								$author$project$Blackjack$Bet(1)))
 						]),
 					_List_fromArray(
 						[
@@ -6158,7 +6244,8 @@ var $author$project$Blackjack$viewBets = A2(
 					_List_fromArray(
 						[
 							$elm$html$Html$Events$onClick(
-							$author$project$Blackjack$Bet(5))
+							$author$project$Blackjack$Doing(
+								$author$project$Blackjack$Bet(5)))
 						]),
 					_List_fromArray(
 						[
@@ -6178,7 +6265,8 @@ var $author$project$Blackjack$viewBets = A2(
 					_List_fromArray(
 						[
 							$elm$html$Html$Events$onClick(
-							$author$project$Blackjack$Bet(10))
+							$author$project$Blackjack$Doing(
+								$author$project$Blackjack$Bet(10)))
 						]),
 					_List_fromArray(
 						[
@@ -6186,104 +6274,34 @@ var $author$project$Blackjack$viewBets = A2(
 						]))
 				]))
 		]));
-var $author$project$Blackjack$Hit = {$: 'Hit'};
-var $author$project$Blackjack$New = {$: 'New'};
-var $author$project$Blackjack$viewControls = A2(
-	$elm$html$Html$ul,
-	_List_Nil,
-	_List_fromArray(
-		[
-			A2(
-			$elm$html$Html$li,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('elem')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$button,
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick($author$project$Blackjack$Hit)
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('Hit')
-						]))
-				])),
-			A2(
-			$elm$html$Html$li,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('elem')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$button,
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick($author$project$Blackjack$Dealer)
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('Stand')
-						]))
-				])),
-			A2(
-			$elm$html$Html$li,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('elem')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$button,
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick($author$project$Blackjack$New)
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('New')
-						]))
-				]))
-		]));
+var $elm$html$Html$br = _VirtualDom_node('br');
+var $author$project$Blackjack$viewAccount = function (you) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						'Cash: $' + $elm$core$String$fromInt(you.b))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						'Bet value: $' + $elm$core$String$fromInt(you.a))
+					]))
+			]));
+};
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Blackjack$viewGame = function (gameState) {
-	var _v0 = function () {
-		switch (gameState.$) {
-			case 'Play':
-				return _Utils_Tuple2('black', ' ');
-			case 'Win':
-				return _Utils_Tuple2('green', 'You Win!');
-			case 'Draw':
-				return _Utils_Tuple2('black', 'Draw');
-			case 'Lose':
-				return _Utils_Tuple2('red', 'You Lost');
-			case 'Bust':
-				return _Utils_Tuple2('red', 'You Busted');
-			default:
-				return _Utils_Tuple2('red', 'Game Over');
-		}
-	}();
-	var color = _v0.a;
-	var state = _v0.b;
-	return A2(
-		$elm$html$Html$span,
-		_List_fromArray(
-			[
-				A2($elm$html$Html$Attributes$style, 'color', color)
-			]),
-		_List_fromArray(
-			[
-				$elm$html$Html$text(state)
-			]));
-};
 var $elm$core$String$cons = _String_cons;
 var $elm$core$String$fromChar = function (_char) {
 	return A2($elm$core$String$cons, _char, '');
@@ -6296,21 +6314,21 @@ var $author$project$Blackjack$viewFace = F2(
 	});
 var $author$project$Blackjack$viewCard = function (card) {
 	var _v0 = function () {
-		if (card.$ === 'Card') {
-			switch (card.a.$) {
-				case 'Spades':
+		if (!card.$) {
+			switch (card.a) {
+				case 0:
 					var _v2 = card.a;
 					var value = card.b;
 					return _Utils_Tuple2(
 						'black',
 						A2($author$project$Blackjack$viewFace, 127136, value));
-				case 'Diamonds':
+				case 1:
 					var _v3 = card.a;
 					var value = card.b;
 					return _Utils_Tuple2(
 						'red',
 						A2($author$project$Blackjack$viewFace, 127152, value));
-				case 'Clubs':
+				case 2:
 					var _v4 = card.a;
 					var value = card.b;
 					return _Utils_Tuple2(
@@ -6336,65 +6354,315 @@ var $author$project$Blackjack$viewCard = function (card) {
 		_List_fromArray(
 			[
 				A2($elm$html$Html$Attributes$style, 'color', color),
-				A2($elm$html$Html$Attributes$style, 'font-size', '10em')
+				A2($elm$html$Html$Attributes$style, 'font-size', '10em'),
+				A2($elm$html$Html$Attributes$style, 'line-height', '1.2')
 			]),
 		_List_fromArray(
 			[
 				$elm$html$Html$text(face)
 			]));
 };
-var $author$project$Blackjack$viewHand = F2(
-	function (player, string) {
+var $author$project$Blackjack$viewDealer = function (dealer) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text(
+				'Dealer Score: ' + $elm$core$String$fromInt(
+					$author$project$Blackjack$score(dealer))),
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				A2($elm$core$List$map, $author$project$Blackjack$viewCard, dealer))
+			]));
+};
+var $author$project$Blackjack$viewPlayer = function (player) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$text(
+				'Player Score: ' + $elm$core$String$fromInt(
+					$author$project$Blackjack$score(player.m))),
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				A2($elm$core$List$map, $author$project$Blackjack$viewCard, player.m))
+			]));
+};
+var $author$project$Blackjack$viewGame = function (game) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$author$project$Blackjack$viewDealer(game.o),
+				$author$project$Blackjack$viewPlayer(game.e),
+				$author$project$Blackjack$viewAccount(game.e),
+				A2($elm$html$Html$br, _List_Nil, _List_Nil)
+			]));
+};
+var $author$project$Blackjack$viewBetting = function (game) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$author$project$Blackjack$viewGame(game),
+				$author$project$Blackjack$viewBets,
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick(
+								$author$project$Blackjack$Moving(2))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Play')
+							]))
+					]))
+			]));
+};
+var $author$project$Blackjack$Home = 4;
+var $author$project$Blackjack$viewEnd = function (game) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$author$project$Blackjack$viewGame(game),
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Game Over!')
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick(
+								$author$project$Blackjack$Moving(4))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Exit')
+							]))
+					]))
+			]));
+};
+var $author$project$Blackjack$NewGame = 0;
+var $author$project$Blackjack$viewLanding = A2(
+	$elm$html$Html$div,
+	_List_Nil,
+	_List_fromArray(
+		[
+			$author$project$Blackjack$viewCard(
+			A2($author$project$Blackjack$Card, 0, 1)),
+			A2(
+			$elm$html$Html$div,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(
+							$author$project$Blackjack$Moving(0))
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Start Game')
+						]))
+				]))
+		]));
+var $author$project$Blackjack$Double = {$: 2};
+var $author$project$Blackjack$Hit = {$: 1};
+var $author$project$Blackjack$Stand = {$: 3};
+var $author$project$Blackjack$viewControls = A2(
+	$elm$html$Html$ul,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$li,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('elem')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(
+							$author$project$Blackjack$Doing($author$project$Blackjack$Hit))
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Hit')
+						]))
+				])),
+			A2(
+			$elm$html$Html$li,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('elem')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(
+							$author$project$Blackjack$Doing($author$project$Blackjack$Double))
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Double')
+						]))
+				])),
+			A2(
+			$elm$html$Html$li,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('elem')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(
+							$author$project$Blackjack$Doing($author$project$Blackjack$Stand))
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Stand')
+						]))
+				]))
+		]));
+var $author$project$Blackjack$viewPlaying = function (game) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				$author$project$Blackjack$viewGame(game),
+				$author$project$Blackjack$viewControls
+			]));
+};
+var $author$project$Blackjack$BetHand = 1;
+var $author$project$Blackjack$viewOutcome = function (outcome) {
+	var _v0 = function () {
+		switch (outcome) {
+			case 0:
+				return _Utils_Tuple2('green', 'You Win!');
+			case 1:
+				return _Utils_Tuple2('black', 'Draw');
+			case 2:
+				return _Utils_Tuple2('red', 'You Lose');
+			default:
+				return _Utils_Tuple2('red', 'You Busted');
+		}
+	}();
+	var color = _v0.a;
+	var string = _v0.b;
+	return A2(
+		$elm$html$Html$span,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'color', color)
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text(string)
+			]));
+};
+var $author$project$Blackjack$viewScoring = F2(
+	function (game, outcome) {
 		return A2(
 			$elm$html$Html$div,
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text(
-					string + (' Score: ' + $elm$core$String$fromInt(
-						$author$project$Blackjack$score(player)))),
+					$author$project$Blackjack$viewGame(game),
+					$author$project$Blackjack$viewOutcome(outcome),
+					A2($elm$html$Html$br, _List_Nil, _List_Nil),
 					A2(
 					$elm$html$Html$div,
 					_List_Nil,
-					A2($elm$core$List$map, $author$project$Blackjack$viewCard, player.hand))
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$button,
+							_List_fromArray(
+								[
+									$elm$html$Html$Events$onClick(
+									$author$project$Blackjack$Moving(1))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Play Again')
+								]))
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$button,
+							_List_fromArray(
+								[
+									$elm$html$Html$Events$onClick(
+									$author$project$Blackjack$Moving(4))
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Exit')
+								]))
+						]))
 				]));
 	});
 var $author$project$Blackjack$view = function (model) {
-	return (!_Utils_eq(model.state, $author$project$Blackjack$End)) ? A2(
-		$elm$html$Html$div,
-		_List_Nil,
-		_List_fromArray(
-			[
-				A2($author$project$Blackjack$viewHand, model.dealer, 'Dealer'),
-				A2($author$project$Blackjack$viewHand, model.you, 'Player'),
-				$author$project$Blackjack$viewControls,
-				$author$project$Blackjack$viewBets,
-				$author$project$Blackjack$viewAccount(model.you),
-				A2(
-				$elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$author$project$Blackjack$viewGame(model.state)
-					]))
-			])) : A2(
-		$elm$html$Html$div,
-		_List_Nil,
-		_List_fromArray(
-			[
-				A2($author$project$Blackjack$viewHand, model.you, 'Player'),
-				A2($author$project$Blackjack$viewHand, model.dealer, 'Dealer'),
-				$author$project$Blackjack$viewAccount(model.you),
-				A2(
-				$elm$html$Html$div,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$author$project$Blackjack$viewGame(model.state)
-					]))
-			]));
+	switch (model.$) {
+		case 0:
+			return $author$project$Blackjack$viewLanding;
+		case 1:
+			var game = model.a;
+			return $author$project$Blackjack$viewBetting(game);
+		case 2:
+			var game = model.a;
+			return $author$project$Blackjack$viewPlaying(game);
+		case 3:
+			var game = model.a;
+			var outcome = model.b;
+			return A2($author$project$Blackjack$viewScoring, game, outcome);
+		default:
+			var game = model.a;
+			return $author$project$Blackjack$viewEnd(game);
+	}
 };
 var $author$project$Blackjack$main = $elm$browser$Browser$element(
-	{init: $author$project$Blackjack$init, subscriptions: $author$project$Blackjack$subscriptions, update: $author$project$Blackjack$update, view: $author$project$Blackjack$view});
+	{az: $author$project$Blackjack$init, aF: $author$project$Blackjack$subscriptions, aH: $author$project$Blackjack$update, aI: $author$project$Blackjack$view});
 _Platform_export({'Blackjack':{'init':$author$project$Blackjack$main(
-	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
+	$elm$json$Json$Decode$succeed(0))(0)}});}(this));

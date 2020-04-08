@@ -60,6 +60,7 @@ viewCard card =
     span
         [ style "color" color
         , style "font-size" "10em"
+        , style "line-height" "1.2"
         ]
         [ text face ]
 
@@ -112,12 +113,20 @@ type alias Player =
     { hand : List Card, cash : Int, bet : Int }
 
 
-score : Player -> Int
-score player =
+type alias Dealer =
+    List Card
+
+
+type alias Deck =
+    List Card
+
+
+score : List Card -> Int
+score hand =
     let
         raw : List Int
         raw =
-            List.map cardValue player.hand
+            List.map cardValue hand
 
         rawScore : Int
         rawScore =
@@ -134,256 +143,439 @@ score player =
 -- MODEL
 
 
-type Game
-    = Play
-    | Win
+type Outcome
+    = Win
     | Draw
     | Lose
     | Bust
-    | End
 
 
-viewGame : Game -> Html Msg
-viewGame gameState =
-    let
-        ( color, state ) =
-            case gameState of
-                Play ->
-                    ( "black"
-                    , " "
-                    )
-
-                Win ->
-                    ( "green"
-                    , "You Win!"
-                    )
-
-                Draw ->
-                    ( "black"
-                    , "Draw"
-                    )
-
-                Lose ->
-                    ( "red"
-                    , "You Lost"
-                    )
-
-                Bust ->
-                    ( "red"
-                    , "You Busted"
-                    )
-
-                End ->
-                    ( "red"
-                    , "Game Over"
-                    )
-    in
-    span
-        [ style "color" color ]
-        [ text state ]
-
-
-type alias Model =
+type alias Game =
     { you : Player
-    , dealer : Player
-    , deck : List Card
-    , state : Game
+    , dealer : Dealer
+    , deck : Deck
     }
+
+
+type Model
+    = Landing Deck
+    | Betting Game
+    | Playing Game
+    | Scoring Game Outcome
+    | End Game
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model (Player [] 100 0) (Player [] 0 0) [] Play
+    ( Landing []
     , Random.generate Start initDeck
     )
+
+
+getDeck : Model -> Deck
+getDeck model =
+    case model of
+        Landing deck ->
+            deck
+
+        Betting game ->
+            game.deck
+
+        Playing game ->
+            game.deck
+
+        Scoring game outcome ->
+            game.deck
+
+        End game ->
+            game.deck
+
+
+getGame : Model -> Game
+getGame model =
+    case model of
+        Betting game ->
+            game
+
+        Playing game ->
+            game
+
+        Scoring game _ ->
+            game
+
+        _ ->
+            -- Never reached
+            { you = { hand = [], cash = 0, bet = 0 }, dealer = [], deck = [] }
 
 
 
 -- UPDATE
 
 
+type Move
+    = NewGame
+    | BetHand
+    | PlayHand
+    | ScoreHand
+    | Home
+
+
+type Action
+    = Bet Int
+    | Hit
+    | Double
+    | Stand
+
+
 type Msg
     = Start (List Card)
-    | New
-    | Bet Int
-    | Hit
-    | Dealer
+    | Moving Move
+    | Doing Action
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Start shuffledDeck ->
-            ( new { model | deck = shuffledDeck }
+            ( Landing shuffledDeck
             , Cmd.none
             )
 
-        New ->
-            ( new model
+        Moving moveTo ->
+            updateMoving moveTo model
+
+        Doing action ->
+            updateAction action model
+
+
+updateMoving : Move -> Model -> ( Model, Cmd Msg )
+updateMoving moveTo model =
+    let
+        deck : Deck
+        deck =
+            getDeck model
+
+        game : Game
+        game =
+            getGame model
+    in
+    case moveTo of
+        NewGame ->
+            ( Betting <| initGame deck
             , Cmd.none
             )
 
+        BetHand ->
+            let
+                outcome =
+                    case model of
+                        Scoring _ result ->
+                            result
+
+                        _ ->
+                            -- Never reached
+                            Win
+            in
+            ( Betting <| nextGame game outcome
+            , Cmd.none
+            )
+
+        PlayHand ->
+            if game.you.bet > 0 then
+                -- Have to bet before playing
+                ( Playing game
+                , Cmd.none
+                )
+
+            else
+                ( model
+                , Cmd.none
+                )
+
+        ScoreHand ->
+            let
+                result : Outcome
+                result =
+                    gameOutcome game
+
+                gameOver : Bool
+                gameOver =
+                    isGameOver game result
+            in
+            if gameOver then
+                ( End game
+                , Cmd.none
+                )
+
+            else
+                ( Scoring game result
+                , Cmd.none
+                )
+
+        Home ->
+            ( Landing []
+            , Random.generate Start initDeck
+            )
+
+
+updateAction : Action -> Model -> ( Model, Cmd Msg )
+updateAction action model =
+    let
+        game : Game
+        game =
+            getGame model
+    in
+    case action of
         Bet value ->
-            ( bet value model
+            ( Betting <| makeBet game value
             , Cmd.none
             )
 
         Hit ->
             let
-                newModel : Model
-                newModel =
-                    hit model
+                newGame : Game
+                newGame =
+                    hit game
             in
-            if score newModel.you > 21 then
-                update Dealer { newModel | state = Bust }
+            if score newGame.you.hand > 21 then
+                -- If player busts, hand ends
+                update (Moving ScoreHand) (Playing newGame)
 
             else
-                ( newModel
+                ( Playing newGame
                 , Cmd.none
                 )
 
-        Dealer ->
-            ( game <| stand model
-            , Cmd.none
-            )
+        Double ->
+            update (Moving ScoreHand) (double game)
+
+        Stand ->
+            update (Moving ScoreHand) (stand game)
 
 
 
 -- GAME
--- All actions move cards around within the model, so can all be
--- represented by transformations between models
 
 
-bet : Int -> Model -> Model
-bet value model =
-    let
-        you : Player
-        you =
-            model.you
-    in
-    { model
-        | you =
-            { you
-                | cash = you.cash - value
-                , bet = you.bet + value
+initGame : Deck -> Game
+initGame deck =
+    case deck of
+        c :: c2 :: c3 :: cd ->
+            { you =
+                { hand = [ c, c2 ]
+                , cash = 100
+                , bet = 0
+                }
+            , dealer = [ c3, Back ]
+            , deck = cd
             }
-    }
+
+        _ ->
+            -- Never reached
+            Game { hand = [], cash = 0, bet = 0 } [] []
 
 
-hit : Model -> Model
-hit model =
+makeBet : Game -> Int -> Game
+makeBet game value =
     let
-        you : Player
-        you =
-            model.you
+        player : Player
+        player =
+            game.you
     in
-    case model.deck of
+    { game | you = playerBet player value }
+
+
+playerBet : Player -> Int -> Player
+playerBet player value =
+    if player.cash >= value then
+        -- Stop invalid bets
+        { player
+            | cash = player.cash - value
+            , bet = player.bet + value
+        }
+
+    else
+        player
+
+
+hit : Game -> Game
+hit game =
+    let
+        player : Player
+        player =
+            game.you
+    in
+    case game.deck of
         c :: cd ->
-            { model
-                | you = { you | hand = List.foldr (::) [ c ] you.hand }
+            { game
+                | you = { player | hand = cardToEnd player.hand c }
                 , deck = cd
             }
 
         _ ->
-            model
+            -- Never reached
+            game
 
 
-stand : Model -> Model
-stand model =
+stand : Game -> Model
+stand game =
+    let
+        dealerPlays : Game
+        dealerPlays =
+            playDealer game
+    in
+    Playing dealerPlays
+
+
+double : Game -> Model
+double game =
+    let
+        player : Player
+        player =
+            game.you
+
+        newPlayer : Player
+        newPlayer =
+            { player
+                | bet = player.bet * 2
+                , cash = player.cash - player.bet
+            }
+
+        newGame : Game
+        newGame =
+            { game | you = newPlayer }
+    in
+    hit game
+        |> stand
+
+
+playDealer : Game -> Game
+playDealer game =
     let
         dealerScore : Int
         dealerScore =
-            score model.dealer
+            score game.dealer
 
-        dealerHand : List Card
-        dealerHand =
-            List.filter ((/=) Back) model.dealer.hand
-
-        dealer : Player
+        dealer : Dealer
         dealer =
-            model.dealer
+            List.filter ((/=) Back) game.dealer
     in
     if dealerScore < 17 then
-        case model.deck of
+        -- Dealer will hit soft 17s
+        case game.deck of
             c :: cd ->
-                stand
-                    { model
-                        | dealer = { dealer | hand = List.foldr (::) [ c ] dealerHand }
+                playDealer
+                    { game
+                        | dealer = cardToEnd dealer c
                         , deck = cd
                     }
 
             _ ->
-                model
+                -- Never reached
+                game
 
     else
-        model
+        game
 
 
-new : Model -> Model
-new model =
-    let
-        playerHand : List Card
-        playerHand =
-            model.you.hand
-
-        dealerHand : List Card
-        dealerHand =
-            List.filter ((/=) Back) model.dealer.hand
-    in
-    case model.deck of
-        c :: c2 :: c3 :: cd ->
-            { model
-                | you = Player [ c, c2 ] (model.you.cash - 1) 1
-                , dealer = Player [ c3, Back ] 0 0
-                , deck = cd ++ playerHand ++ dealerHand
-                , state = Play
-            }
-
-        _ ->
-            model
-
-
-game : Model -> Model
-game model =
+gameOutcome : Game -> Outcome
+gameOutcome game =
     let
         playerScore : Int
         playerScore =
-            score model.you
+            score game.you.hand
 
         dealerScore : Int
         dealerScore =
-            score model.dealer
-
-        you : Player
-        you =
-            model.you
+            score game.dealer
     in
-    if you.cash < 0 then
-        { model | state = End }
+    if playerScore > 21 then
+        Bust
 
-    else if playerScore > 21 then
-        { model
-            | state = Bust
-            , you = { you | cash = you.cash, bet = 0 }
-        }
-
-    else if playerScore > dealerScore || dealerScore > 21 then
-        { model
-            | state = Win
-            , you = { you | cash = you.cash + 2 * you.bet, bet = 0 }
-        }
+    else if dealerScore > 21 then
+        Win
 
     else if playerScore == dealerScore then
-        { model
-            | state = Draw
-            , you = { you | cash = you.cash + you.bet, bet = 0 }
-        }
+        Draw
+
+    else if playerScore > dealerScore then
+        Win
 
     else
-        { model
-            | state = Lose
-            , you = { you | cash = you.cash, bet = 0 }
-        }
+        Lose
+
+
+isGameOver : Game -> Outcome -> Bool
+isGameOver game outcome =
+    if outcome == Bust || outcome == Lose then
+        game.you.bet > game.you.cash
+
+    else
+        False
+
+
+nextGame : Game -> Outcome -> Game
+nextGame game outcome =
+    let
+        player : Player
+        player =
+            getBets game.you outcome
+
+        playerHand : Deck
+        playerHand =
+            game.you.hand
+
+        dealerHand : Deck
+        dealerHand =
+            List.filter ((/=) Back) game.dealer
+    in
+    case game.deck of
+        c :: c2 :: c3 :: cd ->
+            { game
+                | you =
+                    { player
+                        | hand = [ c, c2 ]
+                    }
+                , dealer = [ c3, Back ]
+                , deck = cd ++ playerHand ++ dealerHand
+            }
+
+        _ ->
+            -- Never reached
+            game
+
+
+getBets : Player -> Outcome -> Player
+getBets player outcome =
+    case outcome of
+        Win ->
+            { player
+                | cash = player.cash + 2 * player.bet
+                , bet = 0
+            }
+
+        Draw ->
+            { player
+                | cash = player.cash + player.bet
+                , bet = 0
+            }
+
+        Lose ->
+            { player
+                | cash = player.cash - player.bet
+                , bet = 0
+            }
+
+        Bust ->
+            { player
+                | cash = player.cash - player.bet
+                , bet = 0
+            }
+
+
+cardToEnd : Deck -> Card -> Deck
+cardToEnd deck card =
+    List.foldr (::) [ card ] deck
 
 
 
@@ -401,29 +593,81 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    if model.state /= End then
-        div []
-            [ viewHand model.dealer "Dealer"
-            , viewHand model.you "Player"
-            , viewControls
-            , viewBets
-            , viewAccount model.you
-            , div [] [ viewGame model.state ]
-            ]
+    case model of
+        Landing _ ->
+            viewLanding
 
-    else
-        div []
-            [ viewHand model.you "Player"
-            , viewHand model.dealer "Dealer"
-            , viewAccount model.you
-            , div [] [ viewGame model.state ]
-            ]
+        Betting game ->
+            viewBetting game
+
+        Playing game ->
+            viewPlaying game
+
+        Scoring game outcome ->
+            viewScoring game outcome
+
+        End game ->
+            viewEnd game
 
 
-viewHand : Player -> String -> Html Msg
-viewHand player string =
+viewLanding : Html Msg
+viewLanding =
     div []
-        [ text (string ++ " Score: " ++ (String.fromInt <| score player))
+        [ viewCard (Card Spades 1)
+        , div [] [ button [ onClick <| Moving NewGame ] [ text "Start Game" ] ]
+        ]
+
+
+viewGame : Game -> Html Msg
+viewGame game =
+    div []
+        [ viewDealer game.dealer
+        , viewPlayer game.you
+        , viewAccount game.you
+        , br [] []
+        ]
+
+
+viewBetting : Game -> Html Msg
+viewBetting game =
+    div []
+        [ viewGame game
+        , viewBets
+        , div [] [ button [ onClick <| Moving PlayHand ] [ text "Play" ] ]
+        ]
+
+
+viewPlaying : Game -> Html Msg
+viewPlaying game =
+    div []
+        [ viewGame game
+        , viewControls
+        ]
+
+
+viewScoring : Game -> Outcome -> Html Msg
+viewScoring game outcome =
+    div []
+        [ viewGame game
+        , viewOutcome outcome
+        , br [] []
+        , div [] [ button [ onClick <| Moving BetHand ] [ text "Play Again" ] ]
+        , div [] [ button [ onClick <| Moving Home ] [ text "Exit" ] ]
+        ]
+
+
+viewDealer : Dealer -> Html Msg
+viewDealer dealer =
+    div []
+        [ text ("Dealer Score: " ++ (String.fromInt <| score dealer))
+        , div [] (List.map viewCard dealer)
+        ]
+
+
+viewPlayer : Player -> Html Msg
+viewPlayer player =
+    div []
+        [ text ("Player Score: " ++ (String.fromInt <| score player.hand))
         , div [] (List.map viewCard player.hand)
         ]
 
@@ -439,16 +683,55 @@ viewAccount you =
 viewControls : Html Msg
 viewControls =
     ul []
-        [ li [ class "elem" ] [ button [ onClick Hit ] [ text "Hit" ] ]
-        , li [ class "elem" ] [ button [ onClick Dealer ] [ text "Stand" ] ]
-        , li [ class "elem" ] [ button [ onClick New ] [ text "New" ] ]
+        [ li [ class "elem" ] [ button [ onClick <| Doing Hit ] [ text "Hit" ] ]
+        , li [ class "elem" ] [ button [ onClick <| Doing Double ] [ text "Double" ] ]
+        , li [ class "elem" ] [ button [ onClick <| Doing Stand ] [ text "Stand" ] ]
         ]
 
 
 viewBets : Html Msg
 viewBets =
     ul []
-        [ li [ class "elem" ] [ button [ onClick (Bet 1) ] [ text "$1" ] ]
-        , li [ class "elem" ] [ button [ onClick (Bet 5) ] [ text "$5" ] ]
-        , li [ class "elem" ] [ button [ onClick (Bet 10) ] [ text "$10" ] ]
+        [ li [ class "elem" ] [ button [ onClick (Doing <| Bet 1) ] [ text "$1" ] ]
+        , li [ class "elem" ] [ button [ onClick (Doing <| Bet 5) ] [ text "$5" ] ]
+        , li [ class "elem" ] [ button [ onClick (Doing <| Bet 10) ] [ text "$10" ] ]
         ]
+
+
+viewEnd : Game -> Html Msg
+viewEnd game =
+    div []
+        [ viewGame game
+        , div [] [ text "Game Over!" ]
+        , div [] [ button [ onClick <| Moving Home ] [ text "Exit" ] ]
+        ]
+
+
+viewOutcome : Outcome -> Html Msg
+viewOutcome outcome =
+    let
+        ( color, string ) =
+            case outcome of
+                Win ->
+                    ( "green"
+                    , "You Win!"
+                    )
+
+                Draw ->
+                    ( "black"
+                    , "Draw"
+                    )
+
+                Lose ->
+                    ( "red"
+                    , "You Lose"
+                    )
+
+                Bust ->
+                    ( "red"
+                    , "You Busted"
+                    )
+    in
+    span
+        [ style "color" color ]
+        [ text string ]
